@@ -1,0 +1,128 @@
+<!DOCTYPE html>
+<html lang="pt-BR">
+
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>🍃🇧🇷MIPOTI - Conhecendo a Diversidade Biocultural do Brasil através de uma ferramenta digital</title>
+    <style>
+        body {
+            font-family: Arial, sans-serif;
+            display: flex;
+            flex-direction: column;
+            align-items: center;
+            padding: 20px;
+        }
+
+        #map {
+            width: 100%;
+            height: 80vh;
+        }
+
+        .highlight {
+            fill: #f00;
+        }
+
+        #biome-info {
+            display: none;
+            padding: 20px;
+            background-color: #f8f8f8;
+            border: 1px solid #ccc;
+            box-shadow: 0 0 10px rgba(0, 0, 0, 0.1);
+        }
+
+        @media (min-width: 768px) {
+            #biome-info {
+                position: absolute;
+                right: 0;
+                top: 0;
+                width: 30%;
+                height: 100%;
+            }
+        }
+
+        @media (max-width: 767px) {
+            #biome-info {
+                width: 100%;
+            }
+        }
+    </style>
+</head>
+
+<body>
+    <div style="align-content: center;">
+        <h1>🍃🇧🇷MIPOTI</h1>
+        <h2>Conhecendo a Diversidade Biocultural do Brasil através de uma ferramenta digital</h2>
+    </div>
+    <div class="map-container">
+        <div id="biome-map-container"></div>
+        <img id="map-image" src="./assets/biomasbrasileiros-cke.webp" alt="Mapa dos Biomas do Brasil"
+            usemap="#biomas-map" />
+        <div id="biome-info">
+            <h2 id="biome-title"></h2>
+            <p id="biome-description"></p>
+            <ul id="tree-list"></ul>
+        </div>
+    </div>
+
+    <map name="biomas-map">
+        <area alt="Amazonia" title="Amazonia" coords="378,0,13,291" shape="rect"
+            onclick="showBiomeInfo('Amazônia', 'A Amazônia é o maior bioma do Brasil...', ['Castanheira', 'Seringueira', 'Mogno'])">
+        <area alt="2" title="2" coords="484,65,568,313" shape="rect">
+        <area alt="3" title="3" coords="295,406,234,345" shape="rect">
+        <area alt="4" title="4" coords="479,367,390,156,442,206,492,524" shape="rect">
+        <area alt="5" title="5" coords="546,513,289,435" shape="rect">
+        <area alt="6" title="6" coords="393,593,226,545" shape="rect">
+    </map>
+
+    <script>
+        function loadSVG(svgPath, container) {
+            fetch(svgPath)
+                .then(response => response.text())
+                .then(svgData => {
+                    container.innerHTML = svgData;
+                    container.hidden = true;
+                    addClickEvents();
+                })
+                .catch(error => console.error('Erro ao carregar o SVG:', error));
+        }
+
+        // Função para adicionar eventos de clique aos paths do SVG
+        function addClickEvents() {
+            document.querySelectorAll('#biome-map-container path').forEach(function (path) {
+                
+                path.addEventListener('click', function (e) {
+                    document.querySelectorAll('#biome-map-container path').forEach(function (p) {
+                        p.classList.remove('highlight');
+                    });
+                    path.classList.add('highlight');
+                    const description = path.getAttribute('data-description');
+                    document.getElementById('biome-description').textContent = description;
+                    document.getElementById('biome-info').style.display = 'block';
+                });
+            });
+        }
+
+        function showBiomeInfo(title, description, trees) {
+            document.getElementById('biome-title').innerText = title;
+            document.getElementById('biome-description').innerText = description;
+
+            var treeList = document.getElementById('tree-list');
+            treeList.innerHTML = '';
+            trees.forEach(function (tree) {
+                var li = document.createElement('li');
+                li.innerText = tree;
+                treeList.appendChild(li);
+            });
+
+            document.getElementById('biome-info').style.display = 'block';
+            document.querySelector("#map-image").hidden = true;
+            document.querySelector("#biome-map-container").hidden = false;
+        }
+
+        loadSVG('assets/amazonia.svg', document.getElementById('biome-map-container'));
+    </script>
+
+</body>
+
+</html>
