@@ -76,6 +76,44 @@
     </map>
 
     <script>
+        const biomas = [
+            {
+                "id": "Amazonia",
+                "title": "Amazônia",
+                "description": "A Amazônia é o maior bioma do Brasil...",
+                "trees": ["Castanheira", "Seringueira", "Mogno"]
+            },
+            {
+                "id": "Cerrado",
+                "title": "Cerrado",
+                "description": "O Cerrado é o segundo maior bioma do Brasil...",
+                "trees": ["Pequi", "Buriti", "Jatobá"]
+            },
+            {
+                "id": "Caatinga",
+                "title": "Caatinga",
+                "description": "A Caatinga é um bioma exclusivamente brasileiro...",
+                "trees": ["Mandioca", "Carnaúba", "Umbu"]
+            },
+            {
+                "id": "Pantanal",
+                "title": "Pantanal",
+                "description": "O Pantanal é a maior área alagada do mundo...",
+                "trees": ["Aroeira", "Ipê", "Carandá"]
+            },
+            {
+                "id": "Pampa",
+                "title": "Pampa",
+                "description": "O Pampa é um bioma exclusivamente brasileiro...",
+                "trees": ["Butiá", "Graxaim", "Pampa"]
+            },
+            {
+                "id": "Mata Atlântica",
+                "title": "Mata Atlântica",
+                "description": "A Mata Atlântica é um bioma que abrange...",
+                "trees": ["Pau-Brasil", "Jacarandá", "Cedro"]
+            }
+        ]
         function loadSVG(svgPath, container) {
             fetch(svgPath)
                 .then(response => response.text())
@@ -90,7 +128,7 @@
         // Função para adicionar eventos de clique aos paths do SVG
         function addClickEvents() {
             document.querySelectorAll('#biome-map-container path').forEach(function (path) {
-                
+
                 path.addEventListener('click', function (e) {
                     document.querySelectorAll('#biome-map-container path').forEach(function (p) {
                         p.classList.remove('highlight');
