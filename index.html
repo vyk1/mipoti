@@ -4,45 +4,94 @@
 <head>
     <meta charset="UTF-8">
     <meta name="viewport" content="width=device-width, initial-scale=1.0">
-    <title>🍃🇧🇷MIPOTI - Conhecendo a Diversidade Biocultural do Brasil através de uma ferramenta digital</title>
+    <title>🍃MIPOTI - Conhecendo a Diversidade Biocultural do Brasil através de uma ferramenta digital🇧🇷</title>
     <style>
         body {
             font-family: Arial, sans-serif;
+            margin: 0;
+            top: 0;
             display: flex;
             flex-direction: column;
             align-items: center;
-            padding: 20px;
+            justify-content: center;
         }
 
-        #map {
+        nav {
+            background-color: black;
+        }
+
+        nav ul {
+            list-style: none;
+            display: flex;
+            justify-content: space-around;
+        }
+
+        nav ul li {
+            margin: 0 15px;
+        }
+
+        nav ul li a {
+            color: white;
+            text-decoration: none;
+            font-weight: bold;
+        }
+
+        header {
+            background-color: #4CAF50;
+            color: white;
+            padding: 20px;
             width: 100%;
-            height: 80vh;
+            text-align: center;
         }
 
-        .highlight {
-            fill: #f00;
-        }
-
-        #biome-info {
-            display: none;
+        #content {
+            display: flex;
+            align-items: flex-start;
+            justify-content: center;
+            width: 100%;
             padding: 20px;
-            background-color: #f8f8f8;
-            border: 1px solid #ccc;
-            box-shadow: 0 0 10px rgba(0, 0, 0, 0.1);
+            transition: all 0.3s ease;
         }
 
-        @media (min-width: 768px) {
-            #biome-info {
-                position: absolute;
-                right: 0;
-                top: 0;
-                width: 30%;
-                height: 100%;
+        #map-container {
+            width: 50%;
+            text-align: center;
+        }
+
+        #bioma-text {
+            width: 50%;
+            padding: 20px;
+            transition: opacity 0.3s ease;
+        }
+
+        svg {
+            max-width: 100%;
+            height: auto;
+            cursor: pointer;
+            transition: transform 0.3s ease;
+        }
+
+        footer {
+            background-color: #333;
+            color: white;
+            text-align: center;
+            padding: 10px;
+            width: 100%;
+            position: fixed;
+            bottom: 0;
+        }
+
+        @media (max-width: 768px) {
+            #content {
+                flex-direction: column;
             }
-        }
 
-        @media (max-width: 767px) {
-            #biome-info {
+            #map-container {
+                width: 100%;
+                margin-bottom: 20px;
+            }
+
+            #bioma-text {
                 width: 100%;
             }
         }
@@ -50,24 +99,44 @@
 </head>
 
 <body>
-    <div style="align-content: center;">
-        <h1>🍃🇧🇷MIPOTI</h1>
+
+    <header>
+        <nav>
+            <ul>
+                <li><a href="index.html">Início</a></li>
+                <li><a href="projeto.html">Sobre o Projeto</a></li>
+                <li><a href="contato.html">Contato</a></li>
+            </ul>
+        </nav>
+        <h1>🍃MIPOTI🇧🇷</h1>
         <h2>Conhecendo a Diversidade Biocultural do Brasil através de uma ferramenta digital</h2>
-    </div>
-    <div class="map-container">
-        <div id="biome-map-container"></div>
-        <img id="map-image" src="./assets/biomasbrasileiros-cke.webp" alt="Mapa dos Biomas do Brasil"
-            usemap="#biomas-map" />
-        <div id="biome-info">
+        <p>Clique em um bioma para saber mais</p>
+    </header>
+
+    <div id="content">
+        <div class="map-container">
+            <img id="mapa-brasil" src="./assets/biomasbrasileiros-cke.webp" alt="Mapa dos Biomas do Brasil"
+                usemap="#mapa-brasil-map" />
+        </div>
+
+        <!-- SVGs -->
+        <svg id="amazonia-svg-map" xmlns="http://www.w3.org/2000/svg" viewBox="0 0 1000 800">
+            <polygon id="a1" points="200,100 300,100 250,200" fill="#6b8e23" />
+            <polygon id="a2" points="200,200 400,100 250,200" fill="#6b8e23" />
+        </svg>
+        <div id="mapa-text">
+            <h2 id="mapa-title">Selecione um bioma</h2>
+            <p id="mapa-description">Clique em um bioma no mapa para ver as informações.</p>
+        </div>
+        <div id="bioma-text" style="display: none;">
             <h2 id="biome-title"></h2>
-            <p id="biome-description"></p>
-            <ul id="tree-list"></ul>
+            <p id="bioma-description"></p>
+            <p>Clique no marcador para mais informações sobre a planta selecionada</p>
         </div>
     </div>
 
-    <map name="biomas-map">
-        <area alt="Amazonia" title="Amazonia" coords="378,0,13,291" shape="rect"
-            onclick="showBiomeInfo('Amazônia', 'A Amazônia é o maior bioma do Brasil...', ['Castanheira', 'Seringueira', 'Mogno'])">
+    <map name="mapa-brasil-map">
+        <area alt="Amazonia" title="Amazonia" coords="378,0,13,291" shape="rect" id="amazonia" onclick="exibirInfo()">
         <area alt="2" title="2" coords="484,65,568,313" shape="rect">
         <area alt="3" title="3" coords="295,406,234,345" shape="rect">
         <area alt="4" title="4" coords="479,367,390,156,442,206,492,524" shape="rect">
@@ -75,90 +144,86 @@
         <area alt="6" title="6" coords="393,593,226,545" shape="rect">
     </map>
 
+    <footer>
+        <p>&copy; 2024 MIPOTI - Todos os direitos reservados</p>
+    </footer>
+
     <script>
-        const biomas = [
-            {
-                "id": "Amazonia",
-                "title": "Amazônia",
-                "description": "A Amazônia é o maior bioma do Brasil...",
-                "trees": ["Castanheira", "Seringueira", "Mogno"]
+
+        document.querySelectorAll("svg").forEach(e => e.style = "display:none")
+
+        const biomes = {
+            "amazonia": {
+                title: "Amazônia",
+                description: "A Amazônia é o maior bioma do Brasil, caracterizado por uma vasta floresta tropical que abriga uma rica biodiversidade.",
+                mapId: "amazonia-svg-map",
+                marcadores: [
+                    // Adicione marcadores para as plantas da Amazônia aqui
+                    {
+                        id: "a1",
+                        title: "Planta 1",
+                        description: "..."
+                    },
+                    {
+                        id: "a2",
+                        title: "Planta 2",
+                        description: "..."
+                    },
+                ]
             },
-            {
-                "id": "Cerrado",
-                "title": "Cerrado",
-                "description": "O Cerrado é o segundo maior bioma do Brasil...",
-                "trees": ["Pequi", "Buriti", "Jatobá"]
+            "cerrado": {
+                title: "Cerrado",
+                description: "..."
             },
-            {
-                "id": "Caatinga",
-                "title": "Caatinga",
-                "description": "A Caatinga é um bioma exclusivamente brasileiro...",
-                "trees": ["Mandioca", "Carnaúba", "Umbu"]
-            },
-            {
-                "id": "Pantanal",
-                "title": "Pantanal",
-                "description": "O Pantanal é a maior área alagada do mundo...",
-                "trees": ["Aroeira", "Ipê", "Carandá"]
-            },
-            {
-                "id": "Pampa",
-                "title": "Pampa",
-                "description": "O Pampa é um bioma exclusivamente brasileiro...",
-                "trees": ["Butiá", "Graxaim", "Pampa"]
-            },
-            {
-                "id": "Mata Atlântica",
-                "title": "Mata Atlântica",
-                "description": "A Mata Atlântica é um bioma que abrange...",
-                "trees": ["Pau-Brasil", "Jacarandá", "Cedro"]
-            }
-        ]
-        function loadSVG(svgPath, container) {
-            fetch(svgPath)
-                .then(response => response.text())
-                .then(svgData => {
-                    container.innerHTML = svgData;
-                    container.hidden = true;
-                    addClickEvents();
-                })
-                .catch(error => console.error('Erro ao carregar o SVG:', error));
+        };
+
+        const mapaBrasil = document.getElementById('mapa-brasil');
+        const mapContainer = document.getElementById('map-container');
+        const mapaText = document.getElementById('mapa-text');
+        const mapaTitle = document.getElementById('mapa-title');
+        const mapaDescription = document.getElementById('mapa-description');
+        const amazoniaSvgMap = document.getElementById('amazonia-svg-map');
+
+        const biomaText = document.getElementById('bioma-text');
+        const biomeTitle = document.getElementById('biome-title');
+        const biomeDescription = document.getElementById('bioma-description');
+        
+
+        function exibirInfo() {
+            let idBioma = event.target.id;
+            let bioma = biomes[idBioma];
+            let svgEl = document.getElementById(bioma.mapId);
+            // Esconde o mapa do Brasil
+            mapaBrasil.classList.remove("map-container");
+            mapaBrasil.style.display = "none";
+            // Exibe o SVG do bioma
+            // Adiciona a classe map-container ao SVG
+            svgEl.style.display = "block";
+            svgEl.classList.add("map-container")
+            // Esconde o texto do mapa
+            mapaText.classList.remove("map-container");
+            mapaText.style.display = "none";
+            // Exibe o texto do bioma
+            biomaText.classList.add("map-container");
+            biomaText.style.display = "block";
+            biomaText.style.opacity = "1";
+            biomeTitle.textContent = bioma.title;
+            biomeDescription.textContent = bioma.description;
+
         }
 
-        // Função para adicionar eventos de clique aos paths do SVG
-        function addClickEvents() {
-            document.querySelectorAll('#biome-map-container path').forEach(function (path) {
+        amazoniaSvgMap.querySelectorAll('polygon').forEach(function (polygon) {
+            polygon.addEventListener('click', function (event) {
+                const idBioma = event.target.id;
+                let marcador = biomes.amazonia.marcadores.find(marcador => marcador.id === idBioma);
 
-                path.addEventListener('click', function (e) {
-                    document.querySelectorAll('#biome-map-container path').forEach(function (p) {
-                        p.classList.remove('highlight');
-                    });
-                    path.classList.add('highlight');
-                    const description = path.getAttribute('data-description');
-                    document.getElementById('biome-description').textContent = description;
-                    document.getElementById('biome-info').style.display = 'block';
-                });
+                if (marcador) {
+                    mapaText.style.opacity = "1";
+                    biomeTitle.textContent = marcador.title
+                    biomeDescription.textContent = marcador.description;
+                }
             });
-        }
-
-        function showBiomeInfo(title, description, trees) {
-            document.getElementById('biome-title').innerText = title;
-            document.getElementById('biome-description').innerText = description;
-
-            var treeList = document.getElementById('tree-list');
-            treeList.innerHTML = '';
-            trees.forEach(function (tree) {
-                var li = document.createElement('li');
-                li.innerText = tree;
-                treeList.appendChild(li);
-            });
-
-            document.getElementById('biome-info').style.display = 'block';
-            document.querySelector("#map-image").hidden = true;
-            document.querySelector("#biome-map-container").hidden = false;
-        }
-
-        loadSVG('assets/amazonia.svg', document.getElementById('biome-map-container'));
+        });
     </script>
 
 </body>

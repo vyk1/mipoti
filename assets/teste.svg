@@ -1,0 +1,38 @@
+<svg id="biomes-map" xmlns="http://www.w3.org/2000/svg" viewBox="0 0 1000 800">
+    <!-- Amazônia -->
+    <polygon id="amazon" points="100,100 400,100 450,250 300,400 150,300" fill="#76c759" />
+
+    <!-- Cerrado -->
+    <polygon id="cerrado" points="450,250 600,200 700,350 500,500 300,400" fill="#b8a040" />
+
+    <!-- Mata Atlântica -->
+    <polygon id="mata-atlantica" points="700,350 750,400 800,500 700,600 600,450" fill="#8ba85e" />
+
+    <!-- Caatinga -->
+    <polygon id="caatinga" points="600,200 800,200 850,300 700,350" fill="#d2b48c" />
+
+    <!-- Pampa -->
+    <polygon id="pampa" points="500,600 600,700 500,750 400,700" fill="#c1d3a0" />
+
+    <!-- Pantanal -->
+    <polygon id="pantanal" points="400,400 500,400 550,500 450,550" fill="#84c8a0" />
+    
+    <!-- Legenda para os biomas -->
+    <rect x="10" y="700" width="20" height="20" fill="#76c759" />
+    <text x="40" y="715" font-size="16" fill="#000">Amazônia</text>
+    
+    <rect x="10" y="730" width="20" height="20" fill="#b8a040" />
+    <text x="40" y="745" font-size="16" fill="#000">Cerrado</text>
+    
+    <rect x="10" y="760" width="20" height="20" fill="#8ba85e" />
+    <text x="40" y="775" font-size="16" fill="#000">Mata Atlântica</text>
+    
+    <rect x="200" y="700" width="20" height="20" fill="#d2b48c" />
+    <text x="230" y="715" font-size="16" fill="#000">Caatinga</text>
+    
+    <rect x="200" y="730" width="20" height="20" fill="#c1d3a0" />
+    <text x="230" y="745" font-size="16" fill="#000">Pampa</text>
+    
+    <rect x="200" y="760" width="20" height="20" fill="#84c8a0" />
+    <text x="230" y="775" font-size="16" fill="#000">Pantanal</text>
+</svg>

@@ -1,0 +1,113 @@
+<!DOCTYPE html>
+<html lang="pt-BR">
+
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>MIPOTI - Interatividade com Biomas</title>
+    <style>
+        body {
+            font-family: Arial, sans-serif;
+            margin: 0;
+            padding: 0;
+            display: flex;
+            flex-direction: column;
+            align-items: center;
+            justify-content: center;
+            overflow-x: hidden;
+        }
+
+        #content {
+            display: flex;
+            flex-wrap: wrap;
+            justify-content: center;
+            width: 100%;
+            padding: 20px;
+            transition: all 0.3s ease;
+        }
+
+        #map-container {
+            flex: 1 1 50%;
+            text-align: center;
+            transition: all 0.3s ease;
+        }
+
+        #biome-text {
+            flex: 1 1 50%;
+            padding: 20px;
+            opacity: 0;
+            transition: opacity 0.3s ease;
+        }
+
+        svg {
+            max-width: 100%;
+            height: auto;
+            cursor: pointer;
+            transition: transform 0.3s ease;
+        }
+
+        footer {
+            background-color: #333;
+            color: white;
+            text-align: center;
+            padding: 10px;
+            width: 100%;
+            position: fixed;
+            bottom: 0;
+        }
+
+        @media (max-width: 768px) {
+            #content {
+                flex-direction: column;
+            }
+
+            #map-container {
+                width: 100%;
+                margin-bottom: 20px;
+            }
+
+            #biome-text {
+                width: 100%;
+            }
+        }
+    </style>
+</head>
+
+<body>
+
+    <div id="content">
+        <div id="map-container">
+            <!-- SVG dos biomas brasileiros -->
+            <img src="assets/mapa_todos.svg" id="biomes-map" xmlns="http://www.w3.org/2000/svg"
+                viewBox="0 0 1000 1000" />
+        </div>
+
+        <div id="biome-text">
+            <h2>Detalhes do Bioma</h2>
+            <p id="biome-info">Selecione um bioma no mapa para ver detalhes.</p>
+        </div>
+    </div>
+
+    <footer>
+        <p>&copy; 2024 MIPOTI - Mapa Interativo de Conhecimentos de Povos Tradicionais e Povos Indígenas</p>
+    </footer>
+
+    <script>
+        document.getElementById("amazon").addEventListener("click", function () {
+            document.getElementById("biome-info").innerText = "Amazônia: O maior bioma do Brasil, conhecido por sua vasta biodiversidade e papel crucial no clima global.";
+        });
+
+        document.getElementById("caatinga").addEventListener("click", function () {
+            document.getElementById("biome-info").innerText = "Caatinga: Bioma semiárido exclusivo do Brasil, com vegetação xerófila adaptada a longos períodos de seca.";
+        });
+
+        document.getElementById("pantanal").addEventListener("click", function () {
+            document.getElementById("biome-info").innerText = "Pantanal: O maior ecossistema de áreas alagadas do mundo, com rica fauna e flora, essencial para a biodiversidade global.";
+        });
+
+        // Continue adicionando eventos para os outros biomas
+    </script>
+
+</body>
+
+</html>
