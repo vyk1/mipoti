@@ -78,8 +78,9 @@
     <div id="content">
         <div id="map-container">
             <!-- SVG dos biomas brasileiros -->
-            <img src="assets/mapa_todos.svg" id="biomes-map" xmlns="http://www.w3.org/2000/svg"
-                viewBox="0 0 1000 1000" />
+            <div id="biome-map-container">
+                <!-- O SVG será carregado aqui -->
+            </div>
         </div>
 
         <div id="biome-text">
@@ -93,19 +94,27 @@
     </footer>
 
     <script>
-        document.getElementById("amazon").addEventListener("click", function () {
-            document.getElementById("biome-info").innerText = "Amazônia: O maior bioma do Brasil, conhecido por sua vasta biodiversidade e papel crucial no clima global.";
-        });
+        function addClickEvents() {
+            document.querySelector("#biome-map-container").querySelectorAll('path').forEach(function (path) {
+                console.log(path);
 
-        document.getElementById("caatinga").addEventListener("click", function () {
-            document.getElementById("biome-info").innerText = "Caatinga: Bioma semiárido exclusivo do Brasil, com vegetação xerófila adaptada a longos períodos de seca.";
-        });
+                path.addEventListener('click', function (event) {
+                    console.log(event);
 
-        document.getElementById("pantanal").addEventListener("click", function () {
-            document.getElementById("biome-info").innerText = "Pantanal: O maior ecossistema de áreas alagadas do mundo, com rica fauna e flora, essencial para a biodiversidade global.";
-        });
-
-        // Continue adicionando eventos para os outros biomas
+                    document.querySelector("#biome-info").textContent = "Você clicou no bioma " + path.id;
+                });
+            });
+        }
+        function loadSVG(svgPath, container) {
+            fetch(svgPath)
+                .then(response => response.text())
+                .then(svgData => {
+                    container.innerHTML = svgData;
+                    addClickEvents();
+                })
+                .catch(error => console.error('Erro ao carregar o SVG:', error));
+        }
+        loadSVG('./assets/mapa_todos.svg', document.getElementById('biome-map-container'));
     </script>
 
 </body>
