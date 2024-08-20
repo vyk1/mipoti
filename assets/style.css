@@ -1,0 +1,118 @@
+body {
+    font-family: Arial, sans-serif;
+    margin: 0;
+    padding: 0;
+    box-sizing: border-box;
+}
+
+.navbar {
+    display: flex;
+    justify-content: space-between;
+    background-color: #333;
+    padding: 1rem;
+}
+
+.navbar a {
+    color: white;
+    text-decoration: none;
+    padding: 0.5rem 1rem;
+    text-align: center;
+}
+
+.navbar a:hover {
+    background-color: #575757;
+    border-radius: 5px;
+}
+
+.navbar a.active {
+    background-color: #04AA6D;
+    border-radius: 5px;
+}
+
+.main-content {
+    padding: 2rem;
+}
+
+.project-info h1 {
+    font-size: 2rem;
+    color: #333;
+}
+
+.hero {
+    background-color: #4CAF50;
+    color: white;
+    padding: 20px;
+    width: 100%;
+    text-align: center;
+}
+
+
+
+
+#content {
+    display: flex;
+    align-items: flex-start;
+    justify-content: center;
+    width: 100%;
+    padding: 20px;
+    transition: all 0.3s ease;
+}
+
+#map-container {
+    width: 50%;
+    text-align: center;
+}
+
+#bioma-text {
+    width: 50%;
+    padding: 20px;
+    transition: opacity 0.3s ease;
+}
+
+svg {
+    max-width: 100%;
+    height: auto;
+    cursor: pointer;
+    transition: transform 0.3s ease;
+}
+
+footer {
+    text-align: center;
+    width: 100%;
+    bottom: 0;
+}
+
+@media (max-width: 768px) {
+    #content {
+        flex-direction: column;
+    }
+
+    #map-container {
+        width: 100%;
+        margin-bottom: 20px;
+    }
+
+    #bioma-text {
+        width: 100%;
+    }
+}
+
+.project-info p {
+    font-size: 1rem;
+    color: #555;
+    line-height: 1.6;
+}
+
+@media (max-width: 768px) {
+    .navbar {
+        flex-direction: column;
+        align-items: center;
+    }
+
+    .navbar a {
+        display: block;
+        width: 100%;
+        text-align: center;
+        padding: 1rem 0;
+    }
+}
