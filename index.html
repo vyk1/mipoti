@@ -10,113 +10,20 @@
     <meta name="keywords" content="MIPOTI, Brasil, bioma, diversidade biocultural">
     <meta name="author" content="Victoria Botelho Martins, Luciele Leonhardt Romanowski">
     <meta name="robots" content="index, follow">
-    <style>
-        body {
-            font-family: Arial, sans-serif;
-            margin: 0;
-            top: 0;
-            display: flex;
-            flex-direction: column;
-            align-items: center;
-            justify-content: center;
-        }
-
-        nav {
-            background-color: black;
-        }
-
-        nav ul {
-            list-style: none;
-            display: flex;
-            justify-content: space-around;
-        }
-
-        nav ul li {
-            margin: 0 15px;
-        }
-
-        nav ul li a {
-            color: white;
-            text-decoration: none;
-            font-weight: bold;
-        }
-
-        header {
-            background-color: #4CAF50;
-            color: white;
-            padding: 20px;
-            width: 100%;
-            text-align: center;
-        }
-
-        #content {
-            display: flex;
-            align-items: flex-start;
-            justify-content: center;
-            width: 100%;
-            padding: 20px;
-            transition: all 0.3s ease;
-        }
-
-        #map-container {
-            width: 50%;
-            text-align: center;
-        }
-
-        #bioma-text {
-            width: 50%;
-            padding: 20px;
-            transition: opacity 0.3s ease;
-        }
-
-        svg {
-            max-width: 100%;
-            height: auto;
-            cursor: pointer;
-            transition: transform 0.3s ease;
-        }
-
-        footer {
-            background-color: #333;
-            color: white;
-            text-align: center;
-            padding: 10px;
-            width: 100%;
-            position: fixed;
-            bottom: 0;
-        }
-
-        @media (max-width: 768px) {
-            #content {
-                flex-direction: column;
-            }
-
-            #map-container {
-                width: 100%;
-                margin-bottom: 20px;
-            }
-
-            #bioma-text {
-                width: 100%;
-            }
-        }
-    </style>
+    <link rel="stylesheet" href="./assets/style.css">
 </head>
 
 <body>
+    <nav class="navbar">
+        <a href="/index.html" class="active">Início</a>
+        <a href="/sobre.html">Sobre</a>
+    </nav>
 
-    <header>
-        <nav>
-            <ul>
-                <li><a href="index.html">Início</a></li>
-                <li><a href="projeto.html">Sobre o Projeto</a></li>
-                <li><a href="contato.html">Contato</a></li>
-            </ul>
-        </nav>
+    <div class="hero">
         <h1>🍃MIPOTI🇧🇷</h1>
         <h2>Conhecendo a Diversidade Biocultural do Brasil através de uma ferramenta digital</h2>
         <p>Clique em um bioma para saber mais</p>
-    </header>
+    </div>
 
     <div id="content">
         <div class="map-container">
