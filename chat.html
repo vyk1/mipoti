@@ -5,72 +5,7 @@
     <meta charset="UTF-8">
     <meta name="viewport" content="width=device-width, initial-scale=1.0">
     <title>MIPOTI - Interatividade com Biomas</title>
-    <style>
-        body {
-            font-family: Arial, sans-serif;
-            margin: 0;
-            padding: 0;
-            display: flex;
-            flex-direction: column;
-            align-items: center;
-            justify-content: center;
-            overflow-x: hidden;
-        }
-
-        #content {
-            display: flex;
-            flex-wrap: wrap;
-            justify-content: center;
-            width: 100%;
-            padding: 20px;
-            transition: all 0.3s ease;
-        }
-
-        #map-container {
-            flex: 1 1 50%;
-            text-align: center;
-            transition: all 0.3s ease;
-        }
-
-        #biome-text {
-            flex: 1 1 50%;
-            padding: 20px;
-            opacity: 0;
-            transition: opacity 0.3s ease;
-        }
-
-        svg {
-            max-width: 100%;
-            height: auto;
-            cursor: pointer;
-            transition: transform 0.3s ease;
-        }
-
-        footer {
-            background-color: #333;
-            color: white;
-            text-align: center;
-            padding: 10px;
-            width: 100%;
-            position: fixed;
-            bottom: 0;
-        }
-
-        @media (max-width: 768px) {
-            #content {
-                flex-direction: column;
-            }
-
-            #map-container {
-                width: 100%;
-                margin-bottom: 20px;
-            }
-
-            #biome-text {
-                width: 100%;
-            }
-        }
-    </style>
+    <link rel="stylesheet" href="./assets/style.css">
 </head>
 
 <body>
@@ -94,14 +29,45 @@
     </footer>
 
     <script>
+        const biomes = {
+            "cls-1": {
+                nome: "Mata Atlântica",
+            },
+            "cls-2": {
+                nome: "Caatinga",
+            },
+            "cls-3": {
+                nome: "Amazônia",
+            },
+            "cls-4": {
+                nome: "Cerrado",
+            },
+            "cls-5": {
+                nome: "Pantanal",
+            },
+            "cls-6": {
+                nome: "Pampa",
+            },
+            "cls-7": {
+                nome: null,
+            },
+            "cls-8": {
+                nome: null,
+            },
+            "cls-9": {
+                nome: null,
+            },
+        }
+
         function addClickEvents() {
             document.querySelector("#biome-map-container").querySelectorAll('path').forEach(function (path) {
-                console.log(path);
-
                 path.addEventListener('click', function (event) {
-                    console.log(event);
-
-                    document.querySelector("#biome-info").textContent = "Você clicou no bioma " + path.id;
+                    let nomeBioma = biomes[path.classList[0]].nome
+                    // Verifica se o bioma clicado é válido
+                    if (nomeBioma != null) {
+                        document.querySelector("#biome-info").textContent = "Você clicou no bioma " + nomeBioma;
+                        console.log(document.querySelector("#biome-map-container").querySelectorAll('path'));
+                    }
                 });
             });
         }

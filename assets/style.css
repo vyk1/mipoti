@@ -47,7 +47,10 @@ body {
 }
 
 
-
+.active {
+    color: yellow;
+    background-color: yellow;
+}
 
 #content {
     display: flex;

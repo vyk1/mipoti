@@ -27,19 +27,19 @@
     </div>
 
     <div id="content">
-        <div class="map-container">
-            <img id="mapa-brasil" src="./assets/biomasbrasileiros-cke.webp" alt="Mapa dos Biomas do Brasil"
-                usemap="#mapa-brasil-map" />
+        <div id="map-container">
+            <!-- SVG dos biomas brasileiros -->
+            <div id="biome-map-container">
+                <!-- O SVG será carregado aqui -->
+            </div>
         </div>
 
         <!-- SVGs -->
-        <svg id="amazonia-svg-map" xmlns="http://www.w3.org/2000/svg" viewBox="0 0 1000 800">
-            <polygon id="a1" points="200,100 300,100 250,200" fill="#6b8e23" />
-            <polygon id="a2" points="200,200 400,100 250,200" fill="#6b8e23" />
-        </svg>
+        <div id="svg-biomas"></div>
+        <!-- Textos -->
         <div id="mapa-text">
             <h2 id="mapa-title">Selecione um bioma</h2>
-            <p id="mapa-description">Clique em um bioma no mapa para ver as informações.</p>
+            <p id="mapa-description">Clique em um bioma no mapa para ver as informações (Amazônia ou Cerrado, no momento).</p>
         </div>
         <div id="bioma-text" style="display: none;">
             <h2 id="biome-title"></h2>
@@ -47,15 +47,6 @@
             <p>Clique no marcador para mais informações sobre a planta selecionada</p>
         </div>
     </div>
-
-    <map name="mapa-brasil-map">
-        <area alt="Amazonia" title="Amazonia" coords="378,0,13,291" shape="rect" id="amazonia" onclick="exibirInfo()">
-        <area alt="2" title="2" coords="484,65,568,313" shape="rect">
-        <area alt="3" title="3" coords="295,406,234,345" shape="rect">
-        <area alt="4" title="4" coords="479,367,390,156,442,206,492,524" shape="rect">
-        <area alt="5" title="5" coords="546,513,289,435" shape="rect">
-        <area alt="6" title="6" coords="393,593,226,545" shape="rect">
-    </map>
 
     <footer>
         <p>&copy; 2024 MIPOTI - Todos os direitos reservados</p>
@@ -65,13 +56,12 @@
 
         document.querySelectorAll("svg").forEach(e => e.style = "display:none")
 
-        const biomes = {
-            "amazonia": {
+        const colecaoBiomas = {
+            "Amazônia": {
                 title: "Amazônia",
                 description: "A Amazônia é o maior bioma do Brasil, caracterizado por uma vasta floresta tropical que abriga uma rica biodiversidade.",
-                mapId: "amazonia-svg-map",
+                mapId: "./assets/2-marcadores.svg",
                 marcadores: [
-                    // Adicione marcadores para as plantas da Amazônia aqui
                     {
                         id: "a1",
                         title: "Planta 1",
@@ -84,59 +74,134 @@
                     },
                 ]
             },
-            "cerrado": {
+            "Cerrado": {
                 title: "Cerrado",
-                description: "..."
+                description: "O Cerrado é o segundo maior bioma do Brasil, caracterizado por uma vegetação de savana com árvores baixas e arbustos.",
+                mapId: "./assets/2-marcadores.svg",
+                marcadores: [
+                    {
+                        id: "c1",
+                        title: "Planta 1",
+                        description: "..."
+                    },
+                    {
+                        id: "c2",
+                        title: "Planta 2",
+                        description: "..."
+                    },
+                ]
             },
         };
 
-        const mapaBrasil = document.getElementById('mapa-brasil');
+        const mapaBrasil = document.getElementById('biome-map-container');
         const mapContainer = document.getElementById('map-container');
         const mapaText = document.getElementById('mapa-text');
         const mapaTitle = document.getElementById('mapa-title');
         const mapaDescription = document.getElementById('mapa-description');
-        const amazoniaSvgMap = document.getElementById('amazonia-svg-map');
+        const svgBiomas = document.querySelector('#svg-biomas');
 
         const biomaText = document.getElementById('bioma-text');
         const biomeTitle = document.getElementById('biome-title');
         const biomeDescription = document.getElementById('bioma-description');
 
-
-        function exibirInfo() {
-            let idBioma = event.target.id;
-            let bioma = biomes[idBioma];
-            let svgEl = document.getElementById(bioma.mapId);
-            // Esconde o mapa do Brasil
-            mapaBrasil.classList.remove("map-container");
-            mapaBrasil.style.display = "none";
-            // Exibe o SVG do bioma
-            // Adiciona a classe map-container ao SVG
-            svgEl.style.display = "block";
-            svgEl.classList.add("map-container")
-            // Esconde o texto do mapa
-            mapaText.classList.remove("map-container");
-            mapaText.style.display = "none";
-            // Exibe o texto do bioma
-            biomaText.classList.add("map-container");
-            biomaText.style.display = "block";
-            biomaText.style.opacity = "1";
-            biomeTitle.textContent = bioma.title;
-            biomeDescription.textContent = bioma.description;
-
+        // Interações SVG mapa BR
+        const biomasKey = {
+            "cls-1": {
+                nome: "Mata Atlântica",
+            },
+            "cls-2": {
+                nome: "Caatinga",
+            },
+            "cls-3": {
+                nome: "Amazônia",
+            },
+            "cls-4": {
+                nome: "Cerrado",
+            },
+            "cls-5": {
+                nome: "Pantanal",
+            },
+            "cls-6": {
+                nome: "Pampa",
+            },
+            "cls-7": {
+                nome: null,
+            },
+            "cls-8": {
+                nome: null,
+            },
+            "cls-9": {
+                nome: null,
+            },
+        }
+        // Adiciona eventos de clique ao mapa principal
+        function addClickEvents() {
+            document.querySelector("#biome-map-container").querySelectorAll('path').forEach(function (path) {
+                path.addEventListener('click', function (event) {
+                    let nomeBioma = biomasKey[path.classList[0]].nome
+                    // Verifica se o bioma clicado é válido
+                    if (nomeBioma != null) {
+                        // Esconde o mapa do Brasil
+                        mapaBrasil.classList.remove("map-container");
+                        mapaBrasil.style.display = "none";
+                        // Exibe o SVG do bioma
+                        let biomaSelecionado = colecaoBiomas[nomeBioma];
+                        loadBiomaSvg(biomaSelecionado.mapId, svgBiomas, nomeBioma);
+                        // Adiciona a classe map-container ao SVG
+                        svgBiomas.style.display = "block";
+                        svgBiomas.classList.add("map-container")
+                        // Esconde o texto do mapa
+                        mapaText.classList.remove("map-container");
+                        mapaText.style.display = "none";
+                        // Exibe o texto do bioma
+                        biomaText.classList.add("map-container");
+                        biomaText.style.display = "block";
+                        biomaText.style.opacity = "1";
+                        biomeTitle.textContent = biomaSelecionado.title;
+                        biomeDescription.textContent = biomaSelecionado.description;
+                    }
+                });
+            });
         }
 
-        amazoniaSvgMap.querySelectorAll('polygon').forEach(function (polygon) {
-            polygon.addEventListener('click', function (event) {
-                const idBioma = event.target.id;
-                let marcador = biomes.amazonia.marcadores.find(marcador => marcador.id === idBioma);
-
-                if (marcador) {
-                    mapaText.style.opacity = "1";
-                    biomeTitle.textContent = marcador.title
-                    biomeDescription.textContent = marcador.description;
-                }
+        // Adiciona eventos de clique ao SVG do bioma
+        function addClickEventsBioma() {
+            document.querySelector("#svg-biomas").querySelectorAll('polygon').forEach(function (polygon) {
+                polygon.addEventListener('click', function (event) {
+                    let nomeBioma = document.querySelector("#svg-biomas")['data-info']
+                    let idPlanta = polygon.id;
+                    let plantaSelecionada = colecaoBiomas[nomeBioma].marcadores.find(marcador => marcador.id === idPlanta);
+                    if (plantaSelecionada) {
+                        biomeTitle.textContent = plantaSelecionada.title;
+                        biomeDescription.textContent = plantaSelecionada.description;
+                    }
+                });
             });
-        });
+        }
+
+        function loadBiomaSvg(svgPath, container, nomeBioma) {
+            fetch(svgPath)
+                .then(response => response.text())
+                .then(svgData => {
+                    container.innerHTML = svgData;
+                    container['data-info'] = nomeBioma
+                    addClickEventsBioma();
+                })
+                .catch(error => console.error('Erro ao carregar o SVG:', error));
+        }
+
+        function loadSVGBrasil(svgPath, container) {
+            fetch(svgPath)
+                .then(response => response.text())
+                .then(svgData => {
+                    container.innerHTML = svgData;
+                    addClickEvents();
+                })
+                .catch(error => console.error('Erro ao carregar o SVG:', error));
+        }
+
+        loadSVGBrasil('./assets/mapa_todos-nat-geo.svg', document.getElementById('biome-map-container'));
+
     </script>
 
 </body>
