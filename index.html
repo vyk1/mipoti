@@ -3,7 +3,7 @@
 
 <head>
     <meta charset="UTF-8">
-    <base href="/mipoti/">
+    <base href="/">
     <meta name="viewport" content="width=device-width, initial-scale=1.0">
     <title>🍃MIPOTI - Conhecendo a Diversidade Biocultural do Brasil através de uma ferramenta digital🇧🇷</title>
     <meta name="description"
@@ -35,11 +35,14 @@
         </div>
 
         <!-- SVGs -->
-        <div id="svg-biomas"></div>
+        <div id="svg-biomas" style="display: none;">
+            <span onclick="voltarParaBrasil()">Voltar para Brasil</span>
+        </div>
         <!-- Textos -->
         <div id="mapa-text">
             <h2 id="mapa-title">Selecione um bioma</h2>
-            <p id="mapa-description">Clique em um bioma no mapa para ver as informações (Amazônia ou Cerrado, no momento).</p>
+            <p id="mapa-description">Clique em um bioma no mapa para ver as informações (Amazônia ou Cerrado, no
+                momento).</p>
         </div>
         <div id="bioma-text" style="display: none;">
             <h2 id="biome-title"></h2>
@@ -93,8 +96,7 @@
             },
         };
 
-        const mapaBrasil = document.getElementById('biome-map-container');
-        const mapContainer = document.getElementById('map-container');
+        const mapaBrasil = document.getElementById('map-container');
         const mapaText = document.getElementById('mapa-text');
         const mapaTitle = document.getElementById('mapa-title');
         const mapaDescription = document.getElementById('mapa-description');
@@ -134,6 +136,15 @@
                 nome: null,
             },
         }
+
+        function voltarParaBrasil() {
+            svgBiomas.style.display = "none";
+            svgBiomas.classList.remove("map-container");
+            mapaBrasil.style.display = "block";
+            mapaText.style.display = "block";
+            biomaText.style.display = "none";
+        }
+
         // Adiciona eventos de clique ao mapa principal
         function addClickEvents() {
             document.querySelector("#biome-map-container").querySelectorAll('path').forEach(function (path) {
@@ -142,7 +153,6 @@
                     // Verifica se o bioma clicado é válido
                     if (nomeBioma != null) {
                         // Esconde o mapa do Brasil
-                        mapaBrasil.classList.remove("map-container");
                         mapaBrasil.style.display = "none";
                         // Exibe o SVG do bioma
                         let biomaSelecionado = colecaoBiomas[nomeBioma];
@@ -183,7 +193,7 @@
             fetch(svgPath)
                 .then(response => response.text())
                 .then(svgData => {
-                    container.innerHTML = svgData;
+                    container.insertAdjacentHTML('beforeend', svgData);
                     container['data-info'] = nomeBioma
                     addClickEventsBioma();
                 })
