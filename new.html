@@ -1,0 +1,306 @@
+<!DOCTYPE html>
+<html lang="pt-BR">
+
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>MIPOTI - Conhecendo a Diversidade Biocultural do Brasil</title>
+    <style>
+        body {
+            margin: 0;
+            padding: 0;
+            background-color: #5C917D;
+            font-family: Arial, sans-serif;
+            display: flex;
+            justify-content: center;
+            align-items: center;
+            flex-direction: column;
+            min-height: 100vh;
+        }
+
+        main {
+            flex: 1;
+            padding: 20px;
+        }
+
+        .container {
+            display: flex;
+            justify-content: space-between;
+            align-items: flex-start;
+            margin: 100px 0;
+            width: 100%;
+            height: 100%;
+        }
+
+        /* Lado esquerdo do texto */
+        .left {
+            width: 50%;
+            color: white;
+            text-align: center;
+            display: flex;
+            flex-direction: column;
+            justify-content: center;
+            padding: 20px;
+        }
+
+        .left h1 {
+            font-size: 3.5em;
+            font-weight: bold;
+            margin: 0;
+        }
+
+        .left h2 {
+            font-size: 1.8em;
+            font-weight: lighter;
+        }
+
+        .left p {
+            margin-top: 20px;
+            font-size: 1.1em;
+            line-height: 1.6;
+        }
+
+        .left .btn {
+            background-color: white;
+            color: #5C917D;
+            padding: 15px 30px;
+            text-align: center;
+            margin-top: 20px;
+            font-size: 1.2em;
+            font-weight: bold;
+            border-radius: 5px;
+            text-decoration: none;
+            display: inline-block;
+        }
+
+        /* Lado direito do mapa */
+        .right {
+            width: 50%;
+            position: relative;
+        }
+
+        .right img {
+            width: 100%;
+        }
+
+        /* Responsividade */
+        @media (max-width: 768px) {
+            .container {
+                flex-direction: column;
+                align-items: center;
+            }
+
+            .left,
+            .right {
+                /* width: 100%; */
+                text-align: center;
+            }
+
+            .left h1 {
+                font-size: 2.5em;
+            }
+
+            .left h2 {
+                font-size: 1.5em;
+            }
+        }
+    </style>
+</head>
+
+<body>
+    <main>
+        <div class="container">
+            <!-- Texto da Esquerda -->
+            <div class="left" id="text-section">
+            </div>
+
+            <!-- Mapa da Direita -->
+            <div class="right">
+                <div id="divBrasil">
+                    <!-- SVG Brasil -->
+                    <div id="biome-map-container"></div>
+                </div>
+
+                <div id="divBioma" style="display: none;">
+                    <span onclick="voltarParaBrasil()">Voltar para Brasil</span>
+                    <!-- SVG Biomas -->
+                    <div id="svg-biomas"></div>
+                </div>
+            </div>
+
+        </div>
+    </main>
+    <footer>
+        <p>&copy; 2024 MIPOTI - Todos os direitos reservados</p>
+    </footer>
+
+    <script>
+        // Inicializa a página com todos os SVGs escondidos
+        document.querySelectorAll("svg").forEach(e => e.style = "display:none")
+
+        // Interações SVG mapa BR
+        const biomasKey = {
+            "cls-1": {
+                nome: "Mata Atlântica",
+            },
+            "cls-2": {
+                nome: "Caatinga",
+            },
+            "cls-3": {
+                nome: "Amazônia",
+            },
+            "cls-4": {
+                nome: "Cerrado",
+            },
+            "cls-5": {
+                nome: "Pantanal",
+            },
+            "cls-6": {
+                nome: "Pampa",
+            },
+            "cls-7": {
+                nome: null,
+            },
+            "cls-8": {
+                nome: null,
+            },
+            "cls-9": {
+                nome: null,
+            },
+        }
+
+        const colecaoBiomas = {
+            "Amazônia": {
+                title: "Amazônia",
+                description: "A Amazônia é o maior bioma do Brasil, caracterizado por uma vasta floresta tropical que abriga uma rica biodiversidade.",
+                mapId: "./assets/2-marcadores.svg",
+                marcadores: [
+                    {
+                        id: "a1",
+                        title: "Planta 1",
+                        description: "..."
+                    },
+                    {
+                        id: "a2",
+                        title: "Planta 2",
+                        description: "..."
+                    },
+                ]
+            },
+            "Cerrado": {
+                title: "Cerrado",
+                description: "O Cerrado é o segundo maior bioma do Brasil, caracterizado por uma vegetação de savana com árvores baixas e arbustos.",
+                mapId: "./assets/2-marcadores.svg",
+                marcadores: [
+                    {
+                        id: "c1",
+                        title: "Planta 1",
+                        description: "..."
+                    },
+                    {
+                        id: "c2",
+                        title: "Planta 2",
+                        description: "..."
+                    },
+                ]
+            },
+        };
+
+        const divBrasil = document.getElementById('divBrasil');
+        const divBioma = document.getElementById('divBioma');
+        const svgBiomas = document.querySelector('#svg-biomas');
+        const textSection = document.getElementById('text-section');
+
+        function voltarParaBrasil() {
+            divBrasil.style.display = "";
+            divBioma.style.display = "none";
+            loadTextBrasil()
+        }
+
+        // Adiciona eventos de clique ao mapa principal
+        function addClickEvents() {
+            document.querySelector("#biome-map-container").querySelectorAll('path').forEach(function (path) {
+                path.addEventListener('click', function (event) {
+                    let nomeBioma = biomasKey[path.classList[0]].nome
+                    // Verifica se o bioma clicado é válido
+                    if (nomeBioma != null) {
+                        // Esconde o mapa do Brasil
+                        divBrasil.style.display = "none";
+                        // Exibe o SVG do bioma
+                        let biomaSelecionado = colecaoBiomas[nomeBioma];
+                        loadBiomaSvg(biomaSelecionado.mapId, svgBiomas, nomeBioma);
+                        divBioma.style.display = "flex";
+                        // Exibe o texto do bioma
+                        textSection.innerHTML = `
+                <h1>${biomaSelecionado.title}</h1>
+                <p>${biomaSelecionado.description}</p>
+            `;
+                    }
+                });
+            });
+        }
+
+        // Adiciona eventos de clique ao SVG do bioma
+        function addClickEventsBioma() {
+            document.querySelector("#svg-biomas").querySelectorAll('polygon').forEach(function (polygon) {
+                polygon.addEventListener('click', function (event) {
+                    let nomeBioma = document.querySelector("#svg-biomas")['data-info']
+                    let idPlanta = polygon.id;
+                    let plantaSelecionada = colecaoBiomas[nomeBioma].marcadores.find(marcador => marcador.id === idPlanta);
+                    if (plantaSelecionada) {
+                        textSection.innerHTML = `
+                    <h1>${plantaSelecionada.title}</h1>
+                    <p>${plantaSelecionada.description}</p>
+                `;
+                    }
+                });
+            });
+        }
+
+        function loadBiomaSvg(svgPath, container, nomeBioma) {
+            fetch(svgPath)
+                .then(response => response.text())
+                .then(svgData => {
+                    container.insertAdjacentHTML('beforeend', svgData);
+                    container['data-info'] = nomeBioma
+                    addClickEventsBioma();
+                })
+                .catch(error => console.error('Erro ao carregar o SVG:', error));
+        }
+
+        function loadSVGBrasil(svgPath, container) {
+            fetch(svgPath)
+                .then(response => response.text())
+                .then(svgData => {
+                    container.innerHTML = svgData;
+                    addClickEvents();
+                })
+                .catch(error => console.error('Erro ao carregar o SVG:', error));
+        }
+
+        function loadTextBrasil() {
+            textSection.innerHTML = `
+                 <h1>MIPOTI</h1>
+            <h2>Conhecendo a Diversidade Biocultural do Brasil</h2>
+            <p>
+                Para interagir:
+                <br>O Mapa Interativo de Conhecimentos de Povos Tradicionais e Povos Indígenas (MIPOTI) é uma ferramenta
+                digital que permite aos usuários explorar conhecimentos etnobotânicos em diferentes biomas do Brasil,
+                destacando as práticas culturais relacionadas ao uso de plantas em comunidades tradicionais, incluindo
+                povos indígenas, quilombolas e povos de terreiro, entre outros.
+                <br><br>
+                Clique em um Bioma para começar a conhecer.
+            </p>
+            <a href="sobre.html" class="btn">Clique aqui para saber mais</a>
+            `;
+        }
+
+        loadTextBrasil();
+
+        loadSVGBrasil('./assets/mapa_todos-nat-geo.svg', document.getElementById('biome-map-container'));
+
+    </script>
+
+</body>
+
+</html>
