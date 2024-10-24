@@ -3,7 +3,7 @@
 
 <head>
     <meta charset="UTF-8">
-    <base href="/mipoti/">
+    <!-- <base href="/mipoti/"> -->
     <meta name="viewport" content="width=device-width, initial-scale=1.0">
     <title>🍃MIPOTI - Conhecendo a Diversidade Biocultural do Brasil através de uma ferramenta digital🇧🇷</title>
     <meta name="description"
@@ -15,56 +15,40 @@
 </head>
 
 <body>
-    <nav class="navbar">
-        <a href="index.html" class="active">Início</a>
-        <a href="sobre.html">Sobre</a>
-    </nav>
-
-    <div class="hero">
-        <h1>🍃MIPOTI🇧🇷</h1>
-        <h2>Conhecendo a Diversidade Biocultural do Brasil através de uma ferramenta digital</h2>
-        <p>Clique em um bioma para saber mais</p>
-    </div>
-
-    <div class="content" id="divBrasil">
-        <div class="map-container">
-            <!-- SVG Brasil -->
-            <div id="biome-map-container"></div>
-        </div>
-        <!-- Texto Mapa Brasil -->
-        <div id="mapa-text">
-            <h2 id="mapa-title">Selecione um bioma</h2>
-            <p id="mapa-description">Clique em um bioma no mapa para ver as informações (apenas Amazônia ou Cerrado,
-                no
-                momento).</p>
-        </div>
-    </div>
-
-    <div class="content" id="divBioma" style="display: none;">
-        <div class="map-container">
-            <!-- SVG Biomas -->
-            <div id="svg-biomas">
-                <span onclick="voltarParaBrasil()">Voltar para Brasil</span>
+    <main>
+        <img class="moldura" src="./assets/moldura-grossa.png" alt="Moldura Grossa">
+        <div class="container">
+            <div id="btn-voltar" style="display: none;">
+                <p onclick="voltarParaMapaBrasil()">← 🇧🇷 </p>
             </div>
-        </div>
-        <!-- Texto Biomas -->
-        <div id="bioma-text">
-            <h2 id="biome-title"></h2>
-            <p id="bioma-description"></p>
-            <p>Clique no marcador para mais informações sobre a planta selecionada</p>
-        </div>
-    </div>
+            <div class="esquerdo" id="texto-esquerdo">
+            </div>
 
+            <div class="direito">
+                <div id="div-brasil">
+                    <!-- SVG Brasil -->
+                    <div id="mapa-brasil-biomas"></div>
+                </div>
+
+                <div id="div-bioma" style="display: none;">
+                    <!-- SVG Biomas -->
+                    <div id="svg-bioma"></div>
+                </div>
+            </div>
+
+        </div>
+        <img class="moldura" src="./assets/moldura-grossa.png" alt="Moldura Grossa">
+    </main>
     <footer>
-        <p>&copy; 2024 MIPOTI - Todos os direitos reservados</p>
+        <p>&copy; 2024 MIPOTI - Este software é software livre, licenciado sob a MIT License.</p>
     </footer>
 
     <script>
         // Inicializa a página com todos os SVGs escondidos
         document.querySelectorAll("svg").forEach(e => e.style = "display:none")
 
-        // Interações SVG mapa BR
-        const biomasKey = {
+        // Interações SVG mapa BR da NatGeo
+        const chavesBiomas = {
             "cls-1": {
                 nome: "Mata Atlântica",
             },
@@ -96,113 +80,203 @@
 
         const colecaoBiomas = {
             "Amazônia": {
-                title: "Amazônia",
-                description: "A Amazônia é o maior bioma do Brasil, caracterizado por uma vasta floresta tropical que abriga uma rica biodiversidade.",
-                mapId: "./assets/2-marcadores.svg",
-                marcadores: [
+                titulo: "Amazônia",
+                descricao: "É megadiverso! Esse aqui é o maior bioma brasileiro e que tem a maior riqueza de espécies.",
+                tipoInformativo: "Para ir além",
+                textoInformativo: "Uma espécie endêmica é um ser vivo que só existe em  um lugar do mundo. Por exemplo, alguns animais e  plantas só existem em certas ilhas, florestas ou no Bioma Amazônia.",
+                caminhoSvg: "./assets/amazonia/amazonia-selecionada.png",
+                imagens: ["./assets/amazonia/amazonia-info.png"],
+                plantas: [
                     {
-                        id: "a1",
-                        title: "Planta 1",
-                        description: "..."
-                    },
-                    {
-                        id: "a2",
-                        title: "Planta 2",
-                        description: "..."
-                    },
-                ]
-            },
-            "Cerrado": {
-                title: "Cerrado",
-                description: "O Cerrado é o segundo maior bioma do Brasil, caracterizado por uma vegetação de savana com árvores baixas e arbustos.",
-                mapId: "./assets/2-marcadores.svg",
-                marcadores: [
-                    {
-                        id: "c1",
-                        title: "Planta 1",
-                        description: "..."
-                    },
-                    {
-                        id: "c2",
-                        title: "Planta 2",
-                        description: "..."
+                        id: "andiroba",
+                        nomePopular: "Andiroba",
+                        nomeCientifico: "Carapa guianensis",
+                        descricao: "Árvore de grande porte! Tem casca grossa e amarga, facilmente destacável em grandes lascas ou placas. Suas flores são pequenas, muito perfumadas e cor de creme.",
+                        foto: "./assets/amazonia/andiroba-foto.png",
+                        icone: "./assets/amazonia/andiroba-icone.png",
+                        informacoesPovo: [
+                            {
+                                nome: "Tikuna",
+                                informacoes: [
+                                    "Povo Tikuna é um dos mais numerosos da região amazônica brasileira.",
+                                    "Segundo a tradição dos Tikuna, Yo'i, um herói muito importante, pescou os primeiros Tikuna das águas vermelhas de um igarapé chamado Eware. ",
+                                    "O rio Eware é onde muitas das histórias do povo Tikuna começaram.",
+                                    "Yo'i, para não ficar sozinho, usou uma vara de pescar especial e trouxe as pessoas Magüta, que significa “pessoas pescadas com vara”, para viverem perto de sua cabana, na montanha Taiwegine. ",
+                                    "Esse lugar é muito sagrado para os Tikuna até hoje, pois ali ainda existem marcas da casa e da vara de Yo'i.",
+                                ]
+                            }
+                        ],
+                        informacoesBotanicas: [
+                            "A andiroba é uma árvore de grande porte, que pode atingir até 30 metros de altura.",
+                            "Suas flores são pequenas, muito perfumadas e cor de creme.",
+                        ]
                     },
                 ]
             },
         };
 
-        const divBrasil = document.getElementById('divBrasil');
-        const divBioma = document.getElementById('divBioma');
-        const svgBiomas = document.querySelector('#svg-biomas');
+        const divBrasil = document.getElementById('div-brasil');
+        const divBioma = document.getElementById('div-bioma');
+        const btnVoltar = document.getElementById('btn-voltar');
+        const svgBioma = document.querySelector('#svg-bioma');
+        const textoEsquerdo = document.getElementById('texto-esquerdo');
 
-        const biomaText = document.getElementById('bioma-text');
-        const biomeTitle = document.getElementById('biome-title');
-        const biomeDescription = document.getElementById('bioma-description');
-
-        function voltarParaBrasil() {
-            divBrasil.style.display = "flex";
+        function voltarParaMapaBrasil() {
+            divBrasil.style.display = "";
             divBioma.style.display = "none";
+            btnVoltar.style.display = "none";
+            document.querySelector("body").style.backgroundColor = "#5C917D";
+            carregarTextoInicial()
         }
 
-        // Adiciona eventos de clique ao mapa principal
-        function addClickEvents() {
-            document.querySelector("#biome-map-container").querySelectorAll('path').forEach(function (path) {
+        function adicionarEventosCliqueMapaBrasil() {
+            document.querySelector("#mapa-brasil-biomas").querySelectorAll('path').forEach(function (path) {
                 path.addEventListener('click', function (event) {
-                    let nomeBioma = biomasKey[path.classList[0]].nome
+                    let nomeBioma = chavesBiomas[path.classList[0]].nome
                     // Verifica se o bioma clicado é válido
                     if (nomeBioma != null) {
                         // Esconde o mapa do Brasil
                         divBrasil.style.display = "none";
                         // Exibe o SVG do bioma
                         let biomaSelecionado = colecaoBiomas[nomeBioma];
-                        loadBiomaSvg(biomaSelecionado.mapId, svgBiomas, nomeBioma);
-                        divBioma.style.display = "flex";
+                        carregarPngDoBioma(biomaSelecionado.caminhoSvg, svgBioma, nomeBioma);
+                        //carregarSvgDoBioma(biomaSelecionado.caminhoSvg, svgBioma, nomeBioma);
+                        divBioma.style.display = "";
+                        btnVoltar.style.display = "";
+                        // Muda cor de fundo
+                        document.querySelector("body").style.backgroundColor = "#19365d";
+
+                        let imagensPlantas = biomaSelecionado.plantas.map(planta => `<div onclick="adicionarEventoCliquePlanta('${nomeBioma}','${planta.id}')"><p>${planta.nomePopular}</p><img src="${planta.foto}" alt="${planta.title}"></div>`).join('');
+                        // Acumula imagens 
+                        let imagensInformativo = biomaSelecionado.imagens.map((imagem, i) => `<img src="${imagem}" alt="${nomeBioma + i}">`).join('');
+
                         // Exibe o texto do bioma
-                        biomaText.style.display = "block";
-                        biomeTitle.textContent = biomaSelecionado.title;
-                        biomeDescription.textContent = biomaSelecionado.description;
+                        // Exibe as imagens informativas do bioma
+                        textoEsquerdo.innerHTML = `
+                <h1>${biomaSelecionado.titulo}</h1>
+                <p>${biomaSelecionado.descricao}</p>
+                 <div class="informativo balao azul texto-planta">
+                    <p><strong>${biomaSelecionado.tipoInformativo}</strong></p>
+                    <p>${biomaSelecionado.textoInformativo}</p>
+                </div>
+                <div class="imagens-informativo">
+                    ${imagensInformativo}
+                </div>
+                <hr class="branco"/>
+                <h2><strong>Plantas do Bioma</strong></h2>
+                <div class="plantas">
+                    ${imagensPlantas}
+                </div>
+                `;
                     }
                 });
             });
         }
 
         // Adiciona eventos de clique ao SVG do bioma
-        function addClickEventsBioma() {
-            document.querySelector("#svg-biomas").querySelectorAll('polygon').forEach(function (polygon) {
+        function adicionarEventoCliqueBiomas() {
+            document.querySelector("#svg-bioma").querySelectorAll('polygon').forEach(function (polygon) {
                 polygon.addEventListener('click', function (event) {
-                    let nomeBioma = document.querySelector("#svg-biomas")['data-info']
+                    let nomeBioma = document.querySelector("#svg-bioma")['data-info']
                     let idPlanta = polygon.id;
-                    let plantaSelecionada = colecaoBiomas[nomeBioma].marcadores.find(marcador => marcador.id === idPlanta);
+                    let plantaSelecionada = colecaoBiomas[nomeBioma].plantas.find(marcador => marcador.id === idPlanta);
                     if (plantaSelecionada) {
-                        biomeTitle.textContent = plantaSelecionada.title;
-                        biomeDescription.textContent = plantaSelecionada.description;
+                        textoEsquerdo.innerHTML = `
+                    <h1>${plantaSelecionada.title}</h1>
+                    <p>${plantaSelecionada.description}</p>
+                `;
                     }
                 });
             });
         }
 
-        function loadBiomaSvg(svgPath, container, nomeBioma) {
+        function adicionarEventoCliquePlanta(nomeBioma, id) {
+            let plantaSelecionada = colecaoBiomas[nomeBioma].plantas.find(marcador => marcador.id === id);
+            if (plantaSelecionada) {
+                // Limpa imagem do bioma
+                svgBioma.innerHTML = "";
+
+                // Muda cor de fundo
+                document.querySelector("body").style.backgroundColor = "#d66364";
+
+                textoEsquerdo.innerHTML = `
+                <div id="planta-selecionada">
+                    <h1>${plantaSelecionada.nomePopular}</h1>
+                    <hr/>
+                    <h2 class="cientifico">${plantaSelecionada.nomeCientifico}</h2>
+                    <img src="${plantaSelecionada.foto}" alt="${plantaSelecionada.nomePopular}"/>
+                    <p>${plantaSelecionada.descricao}</p>
+                    <hr/>
+                    <img src="${plantaSelecionada.icone}" alt="${plantaSelecionada.nomePopular}-icone"/>
+                    ${plantaSelecionada.informacoesBotanicas.map(info => `<p class="balao verde">${info}</p>`).join('')}
+                </div>
+                `;
+
+                plantaSelecionada.informacoesPovo.forEach(info => {
+                    svgBioma.innerHTML += `
+                    <div class="informativo balao branco texto-povo">
+                        <p><strong>Informações sobre povo ${info.nome}</strong></p>
+                        ${info.informacoes.map(i => `<p>${i}</p>`).join('')}
+                    </div>
+                    `;
+                });
+
+            }
+        }
+
+        function carregarPngDoBioma(pngPath, container, nomeBioma) {
+            fetch(pngPath)
+                .then(response => response.blob())
+                .then(pngData => {
+                    let url = URL.createObjectURL(pngData);
+                    container.innerHTML = `<img src="${url}" alt="${nomeBioma}">`;
+                    container['data-info'] = nomeBioma
+                })
+                .catch(error => console.error('Erro ao carregar o PNG:', error));
+
+        }
+
+        function carregarSvgDoBioma(svgPath, container, nomeBioma) {
             fetch(svgPath)
                 .then(response => response.text())
                 .then(svgData => {
                     container.insertAdjacentHTML('beforeend', svgData);
                     container['data-info'] = nomeBioma
-                    addClickEventsBioma();
+                    adicionarEventoCliqueBiomas();
                 })
                 .catch(error => console.error('Erro ao carregar o SVG:', error));
         }
 
-        function loadSVGBrasil(svgPath, container) {
+        function carregarSvgDoBrasil(svgPath, container) {
             fetch(svgPath)
                 .then(response => response.text())
                 .then(svgData => {
                     container.innerHTML = svgData;
-                    addClickEvents();
+                    adicionarEventosCliqueMapaBrasil();
                 })
                 .catch(error => console.error('Erro ao carregar o SVG:', error));
         }
 
-        loadSVGBrasil('./assets/mapa_todos-nat-geo.svg', document.getElementById('biome-map-container'));
+        function carregarTextoInicial() {
+            textoEsquerdo.innerHTML = `
+                 <h1>MIPOTI</h1>
+            <h2>Conhecendo a Diversidade Biocultural do Brasil</h2>
+            <p>
+                Para interagir:
+                <br>O Mapa Interativo de Conhecimentos de Povos Tradicionais e Povos Indígenas (MIPOTI) é uma ferramenta
+                digital que permite aos usuários explorar conhecimentos etnobotânicos em diferentes biomas do Brasil,
+                destacando as práticas culturais relacionadas ao uso de plantas em comunidades tradicionais, incluindo
+                povos indígenas, quilombolas e povos de terreiro, entre outros.
+                <br><br>
+                Clique em um Bioma para começar a conhecer.
+            </p>
+            <a href="sobre.html" class="btn">Clique aqui para saber mais</a>
+            `;
+        }
+
+        carregarTextoInicial();
+
+        carregarSvgDoBrasil('./assets/mapa_todos-nat-geo.svg', document.getElementById('mapa-brasil-biomas'));
 
     </script>
 

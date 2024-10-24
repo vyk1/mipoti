@@ -1,121 +1,176 @@
 body {
-    font-family: Arial, sans-serif;
-    overflow-x: hidden;
     margin: 0;
+    overflow-x: hidden;
     padding: 0;
-    box-sizing: border-box;
+    background-color: #5C917D;
+    font-family: Arial, sans-serif;
+    display: flex;
+    justify-content: center;
+    align-items: center;
+    flex-direction: column;
+    min-height: 100vh;
 }
 
-.navbar {
+main {
+    flex: 1;
+    padding: 20px;
+    width: 100%;
+}
+
+.container {
     display: flex;
     justify-content: space-between;
-    background-color: #333;
-    padding: 1rem;
-}
-
-.navbar a {
-    color: white;
-    text-decoration: none;
-    padding: 0.5rem 1rem;
-    text-align: center;
-}
-
-.navbar a:hover {
-    background-color: #575757;
-    border-radius: 5px;
-}
-
-.navbar a.active {
-    background-color: #04AA6D;
-    border-radius: 5px;
-}
-
-.main-content {
-    padding: 2rem;
-}
-
-.project-info h1 {
-    font-size: 2rem;
-    color: #333;
-}
-
-.hero {
-    background-color: #4CAF50;
-    color: white;
-    padding: 20px;
-    width: 100%;
-    text-align: center;
-}
-
-
-.active {
-    color: yellow;
-    background-color: yellow;
-}
-
-.content {
-    display: flex;
     align-items: flex-start;
-    justify-content: center;
+    margin: 20px 0;
     width: 100%;
-    padding: 20px;
-    transition: all 0.3s ease;
+    height: 100%;
+    overflow: hidden;
 }
 
-.map-container {
-    width: 50%;
+.balao {
+    padding: 20px;
     text-align: center;
+    max-width: 90%;
+    margin: 0 auto;
+    border-radius: 30px;
 }
 
-#bioma-text {
-    padding: 20px;
-    transition: opacity 0.3s ease;
-}
-
-svg {
-    max-width: 100%;
-    height: auto;
+#btn-voltar {
+    display: flex;
+    justify-content: flex-start;
+    align-items: center;
+    margin: 0 20px;
+    color: white;
     cursor: pointer;
-    transition: transform 0.3s ease;
+    font-size: 5em;
 }
 
-footer {
+.azul {
+    background-color: #A2D9D1;
+}
+
+.verde {
+    background-color: #5C917D;
+}
+
+.vermelho {
+    background-color: #d66364;
+}
+
+.branco {
+    background-color: white;
+    color: white;
+}
+
+.cientifico {
+    font-weight: bold;
+    font-size: 1.2em;
+    font-style: italic;
+    color: black;
+}
+
+.texto-planta p {
+    font-size: 1.2em;
+    line-height: 1.6;
+    color: #004d40;
+}
+
+.texto-povo p {
+    font-size: 1.2em;
+    line-height: 1.6;
+    color: black;
+}
+
+/* Lado esquerdo do texto */
+.esquerdo {
+    width: 50%;
+    color: white;
     text-align: center;
-    width: 100%;
-    bottom: 0;
+    display: flex;
+    flex-direction: column;
+    justify-content: center;
+    padding: 20px;
+    overflow: hidden;
 }
 
-@media (max-width: 768px) {
-    .content {
-        flex-direction: column;
-    }
-
-    .map-container {
-        width: 100%;
-        margin-bottom: 20px;
-    }
-
-    #bioma-text {
-        width: 100%;
-    }
+.esquerdo h1 {
+    font-size: 3.5em;
+    font-weight: bold;
+    margin: 0;
 }
 
-.project-info p {
-    font-size: 1rem;
-    color: #555;
+.esquerdo h2 {
+    font-size: 1.8em;
+    font-weight: lighter;
+}
+
+.esquerdo p {
+    margin-top: 20px;
+    font-size: 1.1em;
     line-height: 1.6;
 }
 
+.esquerdo .btn {
+    background-color: white;
+    color: #5C917D;
+    padding: 15px 30px;
+    text-align: center;
+    margin-top: 20px;
+    font-size: 1.2em;
+    font-weight: bold;
+    border-radius: 5px;
+    text-decoration: none;
+    display: inline-block;
+}
+
+/* Lado direito do mapa */
+.direito {
+    width: 50%;
+    position: relative;
+    overflow: hidden;
+}
+
+.direito img {
+    width: 100%;
+    height: auto;
+}
+
+/* Responsividade */
 @media (max-width: 768px) {
-    .navbar {
+    .container {
         flex-direction: column;
         align-items: center;
     }
 
-    .navbar a {
-        display: block;
+    .esquerdo,
+    .direito {
         width: 100%;
         text-align: center;
-        padding: 1rem 0;
     }
+
+    .texto-planta {
+        width: 90%;
+    }
+}
+
+/* Estilo para as imagens inseridas dinamicamente */
+.plantas {
+    display: flex;
+    flex-wrap: wrap;
+    justify-content: center;
+}
+
+.plantas img {
+    max-width: 10em;
+    margin: 1%;
+    box-shadow: 0px 4px 8px rgba(0, 0, 0, 0.1);
+    transition: transform 0.3s ease;
+}
+
+.plantas img:hover {
+    transform: scale(1.05);
+}
+
+.informativo {
+    margin: 1em 0;
 }
