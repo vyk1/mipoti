@@ -8,6 +8,7 @@
     <style>
         body {
             margin: 0;
+            overflow-x: hidden;
             padding: 0;
             background-color: #5C917D;
             font-family: Arial, sans-serif;
@@ -66,6 +67,7 @@
 
         .branco {
             background-color: white;
+            color: white;
         }
 
         .cientifico {
@@ -176,11 +178,16 @@
         .plantas img:hover {
             transform: scale(1.05);
         }
+
+        .informativo {
+            margin: 1em 0;
+        }
     </style>
 </head>
 
 <body>
     <main>
+        <img class="moldura" src="./assets/moldura-grossa.png" alt="Moldura Grossa">
         <div class="container">
             <div id="btn-voltar" style="display: none;">
                 <p onclick="voltarParaMapaBrasil()">← 🇧🇷 </p>
@@ -201,6 +208,7 @@
             </div>
 
         </div>
+        <img class="moldura" src="./assets/moldura-grossa.png" alt="Moldura Grossa">
     </main>
     <footer>
         <p>&copy; 2024 MIPOTI - Todos os direitos reservados</p>
@@ -311,7 +319,7 @@
 
                         let imagensPlantas = biomaSelecionado.plantas.map(planta => `<div onclick="adicionarEventoCliquePlanta('${nomeBioma}','${planta.id}')"><p>${planta.nomePopular}</p><img src="${planta.foto}" alt="${planta.title}"></div>`).join('');
                         // Acumula imagens 
-                        let imagens = biomaSelecionado.imagens.map(imagem => `<img src="${imagem}" alt="${biomaSelecionado.title}">`).join('');
+                        let imagensInformativo = biomaSelecionado.imagens.map((imagem, i) => `<img src="${imagem}" alt="${nomeBioma + i}">`).join('');
 
                         // Exibe o texto do bioma
                         // Exibe as imagens informativas do bioma
@@ -322,13 +330,13 @@
                     <p><strong>${biomaSelecionado.tipoInformativo}</strong></p>
                     <p>${biomaSelecionado.textoInformativo}</p>
                 </div>
-                <div class="imagens">
-                    ${imagens}
+                <div class="imagens-informativo">
+                    ${imagensInformativo}
                 </div>
+                <hr class="branco"/>
+                <h2><strong>Plantas do Bioma</strong></h2>
                 <div class="plantas">
-                    <div>
-                        ${imagensPlantas}
-                    </div>
+                    ${imagensPlantas}
                 </div>
                 `;
                     }
