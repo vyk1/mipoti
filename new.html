@@ -34,8 +34,7 @@
             overflow: hidden;
         }
 
-        .balao-azul {
-            background-color: #A2D9D1;
+        .balao {
             padding: 20px;
             text-align: center;
             max-width: 90%;
@@ -43,10 +42,49 @@
             border-radius: 30px;
         }
 
+        #btn-voltar {
+            display: flex;
+            justify-content: flex-start;
+            align-items: center;
+            margin: 0 20px;
+            color: white;
+            cursor: pointer;
+            font-size: 5em;
+        }
+
+        .azul {
+            background-color: #A2D9D1;
+        }
+
+        .verde {
+            background-color: #5C917D;
+        }
+
+        .vermelho {
+            background-color: #d66364;
+        }
+
+        .branco {
+            background-color: white;
+        }
+
+        .cientifico {
+            font-weight: bold;
+            font-size: 1.2em;
+            font-style: italic;
+            color: black;
+        }
+
         .texto-planta p {
             font-size: 1.2em;
             line-height: 1.6;
             color: #004d40;
+        }
+
+        .texto-povo p {
+            font-size: 1.2em;
+            line-height: 1.6;
+            color: black;
         }
 
         /* Lado esquerdo do texto */
@@ -144,6 +182,9 @@
 <body>
     <main>
         <div class="container">
+            <div id="btn-voltar" style="display: none;">
+                <p onclick="voltarParaMapaBrasil()">← 🇧🇷 </p>
+            </div>
             <div class="esquerdo" id="texto-esquerdo">
             </div>
 
@@ -154,7 +195,6 @@
                 </div>
 
                 <div id="div-bioma" style="display: none;">
-                    <span onclick="voltarParaMapaBrasil()">Voltar para Brasil</span>
                     <!-- SVG Biomas -->
                     <div id="svg-bioma"></div>
                 </div>
@@ -170,7 +210,7 @@
         // Inicializa a página com todos os SVGs escondidos
         document.querySelectorAll("svg").forEach(e => e.style = "display:none")
 
-        // Interações SVG mapa BR
+        // Interações SVG mapa BR da NatGeo
         const chavesBiomas = {
             "cls-1": {
                 nome: "Mata Atlântica",
@@ -212,16 +252,26 @@
                 plantas: [
                     {
                         id: "andiroba",
-                        nome: "Andiroba",
-                        descricao: "...",
+                        nomePopular: "Andiroba",
+                        nomeCientifico: "Carapa guianensis",
+                        descricao: "Árvore de grande porte! Tem casca grossa e amarga, facilmente destacável em grandes lascas ou placas. Suas flores são pequenas, muito perfumadas e cor de creme.",
                         foto: "./assets/amazonia/andiroba-foto.png",
                         icone: "./assets/amazonia/andiroba-icone.png",
-                        relacaoPovoPlanta: "...",
-                        baloes: [
+                        informacoesPovo: [
                             {
-                                texto: "esta planta é usada para comer",
-                                cor: "vermelho",
+                                nome: "Tikuna",
+                                informacoes: [
+                                    "Povo Tikuna é um dos mais numerosos da região amazônica brasileira.",
+                                    "Segundo a tradição dos Tikuna, Yo'i, um herói muito importante, pescou os primeiros Tikuna das águas vermelhas de um igarapé chamado Eware. ",
+                                    "O rio Eware é onde muitas das histórias do povo Tikuna começaram.",
+                                    "Yo'i, para não ficar sozinho, usou uma vara de pescar especial e trouxe as pessoas Magüta, que significa “pessoas pescadas com vara”, para viverem perto de sua cabana, na montanha Taiwegine. ",
+                                    "Esse lugar é muito sagrado para os Tikuna até hoje, pois ali ainda existem marcas da casa e da vara de Yo'i.",
+                                ]
                             }
+                        ],
+                        informacoesBotanicas: [
+                            "A andiroba é uma árvore de grande porte, que pode atingir até 30 metros de altura.",
+                            "Suas flores são pequenas, muito perfumadas e cor de creme.",
                         ]
                     },
                 ]
@@ -230,12 +280,15 @@
 
         const divBrasil = document.getElementById('div-brasil');
         const divBioma = document.getElementById('div-bioma');
+        const btnVoltar = document.getElementById('btn-voltar');
         const svgBioma = document.querySelector('#svg-bioma');
         const textoEsquerdo = document.getElementById('texto-esquerdo');
 
         function voltarParaMapaBrasil() {
             divBrasil.style.display = "";
             divBioma.style.display = "none";
+            btnVoltar.style.display = "none";
+            document.querySelector("body").style.backgroundColor = "#5C917D";
             carregarTextoInicial()
         }
 
@@ -252,8 +305,11 @@
                         carregarPngDoBioma(biomaSelecionado.caminhoSvg, svgBioma, nomeBioma);
                         //carregarSvgDoBioma(biomaSelecionado.caminhoSvg, svgBioma, nomeBioma);
                         divBioma.style.display = "";
+                        btnVoltar.style.display = "";
+                        // Muda cor de fundo
+                        document.querySelector("body").style.backgroundColor = "#19365d";
 
-                        let imagensPlantas = biomaSelecionado.plantas.map(planta => `<div onclick="adicionarEventoCliquePlanta('${nomeBioma}','${planta.id}')"><p>${planta.nome}</p><img src="${planta.foto}" alt="${planta.title}"></div>`).join('');
+                        let imagensPlantas = biomaSelecionado.plantas.map(planta => `<div onclick="adicionarEventoCliquePlanta('${nomeBioma}','${planta.id}')"><p>${planta.nomePopular}</p><img src="${planta.foto}" alt="${planta.title}"></div>`).join('');
                         // Acumula imagens 
                         let imagens = biomaSelecionado.imagens.map(imagem => `<img src="${imagem}" alt="${biomaSelecionado.title}">`).join('');
 
@@ -262,7 +318,7 @@
                         textoEsquerdo.innerHTML = `
                 <h1>${biomaSelecionado.titulo}</h1>
                 <p>${biomaSelecionado.descricao}</p>
-                 <div class="informativo balao-azul texto-planta">
+                 <div class="informativo balao azul texto-planta">
                     <p><strong>${biomaSelecionado.tipoInformativo}</strong></p>
                     <p>${biomaSelecionado.textoInformativo}</p>
                 </div>
@@ -300,10 +356,34 @@
         function adicionarEventoCliquePlanta(nomeBioma, id) {
             let plantaSelecionada = colecaoBiomas[nomeBioma].plantas.find(marcador => marcador.id === id);
             if (plantaSelecionada) {
+                // Limpa imagem do bioma
+                svgBioma.innerHTML = "";
+
+                // Muda cor de fundo
+                document.querySelector("body").style.backgroundColor = "#d66364";
+
                 textoEsquerdo.innerHTML = `
-                    <h1>${plantaSelecionada.nome}</h1>
+                <div id="planta-selecionada">
+                    <h1>${plantaSelecionada.nomePopular}</h1>
+                    <hr/>
+                    <h2 class="cientifico">${plantaSelecionada.nomeCientifico}</h2>
+                    <img src="${plantaSelecionada.foto}" alt="${plantaSelecionada.nomePopular}"/>
                     <p>${plantaSelecionada.descricao}</p>
+                    <hr/>
+                    <img src="${plantaSelecionada.icone}" alt="${plantaSelecionada.nomePopular}-icone"/>
+                    ${plantaSelecionada.informacoesBotanicas.map(info => `<p class="balao verde">${info}</p>`).join('')}
+                </div>
                 `;
+
+                plantaSelecionada.informacoesPovo.forEach(info => {
+                    svgBioma.innerHTML += `
+                    <div class="informativo balao branco texto-povo">
+                        <p><strong>Informações sobre povo ${info.nome}</strong></p>
+                        ${info.informacoes.map(i => `<p>${i}</p>`).join('')}
+                    </div>
+                    `;
+                });
+
             }
         }
 
