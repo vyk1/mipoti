@@ -121,6 +121,29 @@
                             "Suas flores são pequenas, muito perfumadas e cor de creme.",
                         ]
                     },
+                    {
+                        id: 'copaiba',
+                        nomePopular: "Copaíba",
+                        nomeCientifico: "Copaifera sp.",
+                        descricao: "A copaíba é uma árvore incrível que cresce em várias regiões do Brasil, especialmente na Amazônia! Ela pode ficar bem alta, e uma das coisas mais especiais sobre essa árvore é o óleo que ela produz. Dentro do tronco da copaíba, existe um óleo que é usado por muitas comunidades como um remédio natural para ajudar a tratar machucados e até picadas de insetos. Esse óleo é tão famoso que a copaíba também é chamada de \"árvore do óleo\". Além disso, a copaíba ajuda a proteger a floresta e é o lar de muitos animais, como pássaros e pequenos mamíferos que se abrigam em seus galhos. A copaíba tem flores pequenas, geralmente de cor branca ou amarelo-clara, e crescem em cachos, dando um charme especial à árvore. Embora sejam discretas e pequeninas, essas flores atraem informações que ajudam na polinização. A copaíba também dá frutos, que são pequenas vagens duras com uma semente dentro. Esses frutos não são comestíveis para nós, mas são importantes para a alimentação de alguns animais da floresta. A semente tem uma camada oleosa que é apreciada por pássaros e outros animais que ajudam a espalhar as sementes pela floresta, permitindo que novas copaíbas cresçam.",
+                        foto: "./assets/amazonia/copaiba-foto.png",
+                        icone: "./assets/amazonia/copaiba-icone.png",
+                        informacoesPovo: [
+                            {
+                                nome: "Povos com Conhecimento Tradicional Associado:",
+                                informacoes: [
+                                    "Wajãpi",
+                                    "Guarani",
+                                    "Ribeirinhos",
+                                    "Quilombolas",
+                                    "Caiçaras",
+                                    "Agricultores(as) familiares"
+                                ]
+                            }
+                        ],
+                        informacoesBotanicas: [],
+                        referencias: []
+                    }
                 ]
             },
         };
@@ -160,8 +183,9 @@
 
                         let imagensPlantas = biomaSelecionado.plantas.map(planta => `
                         <div onclick="adicionarEventoCliquePlanta('${nomeBioma}','${planta.id}')">
-                            <p>${planta.nomePopular}</p>
-                            <img src="${planta.foto}" alt="${planta.titulo}">
+                            <p><b>${planta.nomePopular}</b></p>
+                            <p><i>${planta.nomeCientifico}</i></p>
+                            <img src="${planta.foto}" alt="${planta.nomeCientifico}">
                         </div>`).join('');
 
                         // Acumula imagens 
