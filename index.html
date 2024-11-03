@@ -161,9 +161,9 @@
                         let imagensPlantas = biomaSelecionado.plantas.map(planta => `
                         <div onclick="adicionarEventoCliquePlanta('${nomeBioma}','${planta.id}')">
                             <p>${planta.nomePopular}</p>
-                            <img src="${planta.foto}" alt="${planta.title}">
+                            <img src="${planta.foto}" alt="${planta.titulo}">
                         </div>`).join('');
-                        
+
                         // Acumula imagens 
                         let imagensInformativo = biomaSelecionado.imagens.map((imagem, i) => `<img src="${imagem}" alt="${nomeBioma + i}">`).join('');
 
@@ -221,6 +221,9 @@
             if (plantaSelecionada) {
                 // Limpa imagem do bioma
                 svgBioma.innerHTML = "";
+
+                // Limpa lista de plantas
+                listaPlantas.innerHTML = "";
 
                 // Muda cor de fundo
                 document.querySelector("body").style.backgroundColor = "#d66364";
