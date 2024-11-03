@@ -138,6 +138,10 @@ main {
     margin-bottom: 1em;
 }
 
+#planta-selecionada img {
+    width: 20em;
+}
+
 /* Lado direito do mapa */
 .direito {
     width: 50%;
@@ -184,7 +188,7 @@ main {
 
 .plantas img {
     max-width: 10em;
-    margin: 1%;
+    margin: 1em;
     box-shadow: 0px 4px 8px rgba(0, 0, 0, 0.1);
     transition: transform 0.3s ease;
 }
