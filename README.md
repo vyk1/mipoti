@@ -21,6 +21,20 @@ O Mapa Interativo de Conhecimentos de Povos Tradicionais e Povos Indígenas (MIP
         </sub>
       </a>
     </td>
+    <td align="center">
+      <a href="#">
+        <sub>
+          <b>Sofia Zank</b>
+        </sub>
+      </a>
+    </td>
+    <td align="center">
+      <a href="#">
+        <sub>
+          <b>Natalia Hanazaki</b>
+        </sub>
+      </a>
+    </td>
   </tr>
 </table>
 
