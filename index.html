@@ -37,6 +37,7 @@
 
         </div>
         <div id="lista-plantas"></div>
+        <div id="lista-referencias"></div>
         <img class="moldura" src="./assets/moldura-grossa.png" alt="Moldura Grossa" />
     </main>
     <footer>
@@ -82,7 +83,7 @@
             "Amazônia": {
                 titulo: "Amazônia, A Grande Floresta Tropical",
                 descricao: `
-    <h3>A Amazônia é o maior bioma do Brasil, abrigando uma enorme diversidade de plantas e animais. As copas das árvores são tão próximas umas das outras que, em algumas partes, dá até a impressão de que o céu é verde. Essa cobertura densa forma um teto natural que bloqueia parte da luz solar.</h3>
+    <p>A Amazônia é o maior bioma do Brasil, abrigando uma enorme diversidade de plantas e animais. As copas das árvores são tão próximas umas das outras que, em algumas partes, dá até a impressão de que o céu é verde. Essa cobertura densa forma um teto natural que bloqueia parte da luz solar.</p>
     <ul>
     <li><b>Clima</b>: Quente e úmido, com muitas chuvas ao longo do ano.</li>
     <li><b>Aparência</b>: Uma floresta muito densa, onde grandes árvores dominam a paisagem e suas copas formam um “teto” verde.</li>
@@ -186,18 +187,21 @@
             "Caatinga": {
                 titulo: "Caatinga, O Sertão do Sol Forte",
                 descricao: `
-                O Sertão do Sol Forte A Caatinga é um bioma único, que só existe no Brasil. Com clima quente e seco, plantas e animais aqui desenvolveram estratégias para economizar água.
-Clima: Quente e seco, com chuvas apenas em algumas épocas do ano.
-Aparência: Árvores baixas, com galhos retorcidos e espinhos. Durante a seca, algumas plantas perdem suas folhas para conservar água.
-Vegetação: Vegetação adaptada ao clima seco, com a presença de plantas xerófitas com muitas folhas pequenas e espinhos, que evitam a perda de água para o ambiente.
-Rios: Muitos rios da Caatinga são “intermitentes”, ou seja, secam em algumas épocas do ano.
-Curiosidade: Animais como o tatu-bola e plantas como o mandacaru conseguem sobreviver no clima seco deste bioma.
+                <p>A Caatinga é um bioma único, que só existe no Brasil. Com clima quente e seco, plantas e animais aqui desenvolveram estratégias para economizar água.</p>
+<ul>
+    <li><b>Clima</b>: Quente e seco, com chuvas apenas em algumas épocas do ano.</li>
+    <li><b>Aparência</b>: Árvores baixas, com galhos retorcidos e espinhos. Durante a seca, algumas plantas perdem suas folhas para conservar água.</li>
+    <li><b>Vegetação</b>: Vegetação adaptada ao clima seco, com a presença de plantas xerófitas com muitas folhas pequenas e espinhos, que evitam a perda de água para o ambiente.</li>
+    <li><b>Rios</b>: Muitos rios da Caatinga são “intermitentes”, ou seja, secam em algumas épocas do ano.</li>
+    <li><b>Curiosidade</b>: Animais como o tatu-bola e plantas como o mandacaru conseguem sobreviver no clima seco deste bioma.</li>
+    </ul>
 `,
                 tipoInformativo: "Para saber mais",
                 textoInformativo: `Plantas xerófitas são plantas que possuem mecanismos especializados para sobreviver em ambientes áridos ou semiáridos, como a Caatinga e áreas do Cerrado, onde a água é escassa por longos períodos. As xerófitas reduzem a transpiração e fornecem armazenar ou captar água de forma muito eficiente, permitindo que sobrevivam em condições de seca intensa. Exemplos:
-Mandacaru ( Cereus jamacaru ): Um tipo de cacto com espinhos e caule suculento, que armazena água por períodos de seca. Suas flores são grandes e visíveis, abrindo-se à noite.
-Juazeiro ( Ziziphus joazeiro ): Uma árvore de folhas pequenas e rígidas, que ajuda a reduzir a transpiração. É uma planta importante para o sustento da fauna local, pois fornece frutos mesmo durante a seca.
-`,
+                <ul>
+                    <li>Mandacaru (Cereus jamacaru): Um tipo de cacto com espinhos e caule suculento, que armazena água por períodos de seca. Suas flores são grandes e visíveis, abrindo-se à noite.</li>
+                    <li>Juazeiro (Ziziphus joazeiro): Uma árvore de folhas pequenas e rígidas, que ajuda a reduzir a transpiração. É uma planta importante para o sustento da fauna local, pois fornece frutos mesmo durante a seca.</li>
+                </ul>`,
                 caminhoSvg: "./assets/caatinga/caatinga-selecionada.png",
                 imagens: ["./assets/caatinga/caatinga.png"],
                 referencias: [
@@ -291,7 +295,7 @@ Além disso, o angico gera uma resina natural chamada goma de angico, que sai do
             "Cerrado": {
                 titulo: "Cerrado, Berço das Águas",
                 descricao: `
-<h3>O Cerrado é uma savana brasileira, famosa por sua vegetação resistente que sobrevive a incêndios naturais. Muitas plantas do Cerrado, após os incêndios, florescem de maneira ainda mais intensa, colorindo a paisagem. Esse bioma é conhecido como “berço das águas” porque é onde nascem rios importantes, como o Rio Tocantins e o Rio São Francisco.</h3>
+<p>O Cerrado é uma savana brasileira, famosa por sua vegetação resistente que sobrevive a incêndios naturais. Muitas plantas do Cerrado, após os incêndios, florescem de maneira ainda mais intensa, colorindo a paisagem. Esse bioma é conhecido como “berço das águas” porque é onde nascem rios importantes, como o Rio Tocantins e o Rio São Francisco.</p>
                     <ul>
                         <li><b>Clima</b>: Tropical, com uma estação seca e outra chuvosa.</li>
                         <li><b>Aparência</b>: Árvores de casca grossa e raízes profundas, gramíneas e flores que brotam após o fogo. Esse processo de queimadas naturais também ajuda a quebrar a dormência de algumas sementes, permitindo que elas germinem e cresçam após o incêndio.</li>
@@ -371,7 +375,7 @@ Além disso, o angico gera uma resina natural chamada goma de angico, que sai do
             "Pantanal": {
                 titulo: "Pantanal, O Grande Alagado do Brasil",
                 descricao: `
-<h3>O Pantanal é uma das maiores áreas úmidas do planeta. Na época das chuvas, ele se transforma e apresenta águas que cobrem o solo e formam um imenso espelho d'água. Durante a estação seca, essas águas diminuem, revelando campos e áreas secas.</h3>
+<p>O Pantanal é uma das maiores áreas úmidas do planeta. Na época das chuvas, ele se transforma e apresenta águas que cobrem o solo e formam um imenso espelho d'água. Durante a estação seca, essas águas diminuem, revelando campos e áreas secas.</p>
 <ul>
     <li><b>Clima</b>: Tropical, com uma estação chuvosa e outra seca bem marcada.</li>
     <li><b>Aparência</b>: Campos alagados durante as chuvas e áreas secas na estação seca. Vegetação adaptada para resistir a períodos alagados e secos.</li>
@@ -381,7 +385,7 @@ Além disso, o angico gera uma resina natural chamada goma de angico, que sai do
 </ul>
             `,
                 tipoInformativo: "Para saber mais",
-                textoInformativo: "Raízes pneumatóforas são como 'chaminés' que permitem à planta respirar mesmo em solos alagados.",
+                textoInformativo: "As raízes pneumatóforas funcionam como pequenas “chaminés”, permitindo que a planta respire mesmo quando o solo está coberto de água. São típicas de plantas que vivem em ambientes com solos alagados ou encharcados, mas que não estão totalmente submersas, como ocorre nos manguezais. Elas permitem que a planta respire em solos pobres em oxigênio.",
                 caminhoSvg: "./assets/pantanal/pantanal-selecionado.png",
                 imagens: ["./assets/pantanal/pantanal-info.png"],
                 referencias: [
@@ -449,7 +453,15 @@ Além disso, o angico gera uma resina natural chamada goma de angico, que sai do
             },
             "Pampa": {
                 titulo: "Pampa, Os Campos do Sul do Brasil",
-                descricao: `O Pampa é uma imensa extensão de campos verdes e planos, localizada no sul do Brasil, com áreas que se estendem para o Uruguai e a Argentina.Esse bioma é conhecido por seus campos abertos, onde predominam gramíneas e algumas árvores baixas.É uma paisagem onde o céu parece se encontrar com a terra, e é muito importante para a cultura gaúcha, descrito em várias músicas, contos e poesias.`,
+                descricao: `
+                <p>O Pampa é uma imensa extensão de campos verdes e planos, localizada no sul do Brasil, com áreas que se estendem para o Uruguai e a Argentina.Esse bioma é conhecido por seus campos abertos, onde predominam gramíneas e algumas árvores baixas.É uma paisagem onde o céu parece se encontrar com a terra, e é muito importante para a cultura gaúcha, descrito em várias músicas, contos e poesias.</p>
+<ul>
+    <li><b>Clima</b>: Temperado, com estações bem definidas. Verões quentes e invernos frios.</li>
+    <li><b>Aparência</b>: Grandes campos verdes e abertos, com poucas árvores e muito espaço. A paisagem é dominada por gramíneas, outras plantas herbáceas e arbustos. O Pampa também abriga formações geológicas únicas, como o Cerro do Jarau, uma elevação que se destaca na paisagem plana e que, segundo estudos, é uma cratera de impacto de um meteorito que caiu na região há cerca de 117 milhões de anos. Além de sua importância geológica, o Cerro é cercado por lendas, como a da "Salamanca do Jarau", uma gruta encantada que, segundo as histórias locais, abrigaria seres mágicos e tesouros escondidos.</li>
+    <li><b>Vegetação</b>: A vegetação predominante é rasteira, composta principalmente por gramíneas e plantas herbáceas. No entanto, o Pampa também abriga comunidades vegetais únicas, como os butiazais , que são áreas com uma grande concentração de butiazeiros (Butia odorata). Essas palmeiras, típicas da região, formam uma paisagem característica e fornecem frutos que servem de alimento para muitos animais e são utilizados na culinária local. Os butiazais são encontrados principalmente na Campanha Gaúcha, destacando-se nas regiões de Tapes, Barra do Ribeiro e Palmares do Sul, entre outras localidades.</li>
+    <li><b>Curiosidade</b>: O Pampa é o lar de aves como o quero-quero e a ema, além de espécies de plantas que só existem nessa região.</li>
+</ul>
+                `,
                 tipoInformativo: "Para saber mais",
                 textoInformativo: "Gramíneas são um tipo específico de planta herbácea com folhas estreitas e compridas e caules ocos, como aquelas que formam pastagens naturais e vegetação rasteira em campos abertos. Plantas herbáceas , por outro lado, são todas as plantas que possuem caules macios e flexíveis, sem partes lenhosas (como troncos). Elas incluem não apenas as gramíneas, mas também outras plantas de caule mole, como diversas flores silvestres e algumas ervas aromáticas.",
                 caminhoSvg: "./assets/pampa/pampa-selecionado.png",
@@ -529,10 +541,26 @@ Além disso, o angico gera uma resina natural chamada goma de angico, que sai do
                 ]
             },
             "Mata Atlântica": {
-                titulo: "Floresta Costeira",
-                descricao: `A Mata Atlântica é uma floresta muito rica em biodiversidade, mas infelizmente já foi bastante reduzida pela ocupação humana.Mesmo assim, essa floresta abriga espécies de plantas e animais que não existem em nenhum outro lugar do mundo.A maior parte do que sobrou da Mata Atlântica está em áreas de difícil acesso, nas chamadas "serras brasileiras", que incluem a Serra do Mar e a Serra da Mantiqueira.`,
+                titulo: "Mata Atlântica, Floresta Costeira e Mata de Araucária",
+                descricao: `<p>A Mata Atlântica é uma floresta muito rica em biodiversidade, mas infelizmente já foi bastante reduzida pela ocupação humana. Mesmo assim, essa floresta abriga espécies de plantas e animais que não existem em nenhum outro lugar do mundo.A maior parte do que sobrou da Mata Atlântica está em áreas de difícil acesso, nas chamadas "serras brasileiras", que incluem a Serra do Mar e a Serra da Mantiqueira.</p>
+                <ul>
+                    <li><b>Clima</b>: Predominantemente úmido, com regiões mais quentes próximas ao litoral e áreas mais frias nas serras.</li>
+                    <li><b>Aparência</b>: Floresta densa com árvores de grande porte e vegetação variada. O relevo montanhoso ajuda a proteger algumas áreas, mas dificulta o acesso.</li>
+                    <li><b>Vegetação</b>: Exuberante, com árvores como o jequitibá-rosa e o palmito-juçara, além de bromélias e orquídeas, que são plantas epífitas.</li>
+                    <li><b>Curiosidade</b>: A Mata Atlântica é o lar do mico-leão-dourado e da jiboia-arco-íris, espécies que só existem aqui e que estão ameaçadas de extinção.</li>
+                `,
                 tipoInformativo: "Para saber mais",
                 textoInformativo: "Plantas epífitas são plantas que crescem em outras plantas (principalmente nas árvores), mas sem tirar nutrientes delas. Elas usam o tronco ou os galhos como suporte para alcançar a luz, aproveitando a umidade e os nutrientes que vêm da chuva e do ar.",
+
+                // Duplo
+                descricao2: `<p>Dentro da Mata Atlântica, encontra-se uma vegetação especialmente conhecida como Mata de Araucária. Ela ocorre principalmente nas regiões mais altas e frias do Sul do Brasil, como nos estados do Paraná, Santa Catarina e Rio Grande do Sul.</p>
+                <ul>
+                    <li><b>Clima</b>: Clima subtropical, com invernos frios e até periódicos.</li>
+                    <li><b>Aparência</b>: A Mata de Araucária é desenhada pelo pinheiro-brasileiro, ou araucária, uma árvore alta e com formato de “guarda-chuva” nos galhos.</li>
+                    <li><b>Curiosidade</b>: As araucárias produzem pinhões, sementes que são alimento para animais como a gralha-azul. Esse pássaro ajuda a espalhar as sementes pela floresta, pois enterra os pinhões no solo para extrair mais tarde, mas muitas vezes esquece alguns!
+                </ul>
+                <p>A araucária (Araucaria angustifolia) possui grande importância cultural e espiritual para os povos indígenas Kaingang e Xokleng, que habitam a região da Mata de Araucária há séculos. O pinhão, semente da araucária, é uma fonte essencial de alimento e está presente em festividades e rituais comunitários desses povos. O Povo Kaingang, por exemplo, têm o hábito de coleta e armazenamento do pinhão, respeitando o ciclo natural da árvore e garantindo que a colheita não afete a regeneração das araucárias. Já o Povo Xokleng possui práticas tradicionais de manejo e uso sustentável da araucária. A preservação da araucária e o respeito ao conhecimento tradicional dos Povos Kaingang e Xokleng são fundamentais para manter o equilíbrio da Mata de Araucária e proteger a cultura desses povos, que possuem um vínculo profundo e sustentável com esse ecossistema.</p>
+                `,
                 caminhoSvg: "./assets/mata-atlantica/mata-atlantica-selecionado.png",
                 imagens: ["./assets/mata-atlantica/mata-atlantica-info.png"],
                 referencias: [
@@ -624,12 +652,14 @@ Além disso, o angico gera uma resina natural chamada goma de angico, que sai do
         const svgBioma = document.querySelector('#svg-bioma');
         const textoEsquerdo = document.getElementById('texto-esquerdo');
         const listaPlantas = document.getElementById('lista-plantas');
+        const listaReferencias = document.getElementById('lista-referencias');
 
         function voltarParaMapaBrasil() {
             divBrasil.style.display = "";
             divBioma.style.display = "none";
             btnVoltar.style.display = "none";
             listaPlantas.innerHTML = "";
+            listaReferencias.innerHTML = "";
             document.querySelector("body").style.backgroundColor = "#5C917D";
             carregarTextoInicial()
         }
@@ -666,7 +696,7 @@ Além disso, o angico gera uma resina natural chamada goma de angico, que sai do
                         textoEsquerdo.innerHTML = `
                 <h1>${biomaSelecionado.titulo}</h1>
                 <p>${biomaSelecionado.descricao}</p>
-               
+                ${biomaSelecionado.descricao2 ? `<hr/><p>${biomaSelecionado.descricao2}</p>` : ''}
                 <div class="imagens-informativo">
                     ${imagensInformativo}
                 </div>
@@ -689,8 +719,8 @@ Além disso, o angico gera uma resina natural chamada goma de angico, que sai do
 
                         if (biomaSelecionado.referencias.length > 0) {
                             let referencias = biomaSelecionado.referencias.map(ref => `<p>${ref}</p>`).join('');
-                            listaPlantas.innerHTML += `
-                    <div class="informativo balao azul texto-povo">
+                            listaReferencias.innerHTML = `
+                    <div class="referencias balao azul texto-povo">
                         <p><strong>Referências</strong></p>
                         ${referencias}
                     </div>
@@ -726,6 +756,9 @@ Além disso, o angico gera uma resina natural chamada goma de angico, que sai do
 
                 // Limpa lista de plantas
                 listaPlantas.innerHTML = "";
+
+                // Limpa lista de referências
+                listaReferencias.innerHTML = "";
 
                 // Muda cor de fundo
                 document.querySelector("body").style.backgroundColor = "#d66364";
