@@ -1,0 +1,117 @@
+<!DOCTYPE html>
+<html lang="pt-BR">
+
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>Quiz Interativo do 🍃MIPOTI - Conhecendo a Diversidade Biocultural do Brasil através de uma ferramenta
+        digital🇧🇷</title>
+    <meta name="description"
+        content="Quiz Interativo do MIPOTI - Conhecendo a Diversidade Biocultural do Brasil através de uma ferramenta digital">
+    <meta name="keywords" content="MIPOTI, Brasil, bioma, diversidade biocultural">
+    <meta name="author" content="Victoria Botelho Martins, Luciele Leonhardt Romanowski, Sofia Zank, Natalia Hanazaki">
+    <meta name="robots" content="index, follow">
+    <link rel="stylesheet" href="./assets/style.css">
+    <link href="https://fonts.googleapis.com/css2?family=Merriweather:wght@400;700&display=swap" rel="stylesheet">
+</head>
+
+<body>
+    <div class="menu-bar">
+        <a href="inicio.html">Voltar ao MIPOTI</a>
+        <a href="sobre.html">Mais sobre o MIPOTI</a>
+    </div>
+
+    <div id="inicio" class="content">
+        <div id="quiz-container">
+            <div class="question" id="question"></div>
+            <ul class="choices" id="choices"></ul>
+            <button id="submit-button">Enviar Resposta</button>
+            <div class="explanation" id="explanation" style="display: none;"></div>
+            <button id="next-button">Próxima Pergunta</button>
+        </div>
+    </div>
+    
+    <img class="moldura" src="./assets/moldura-grossa.png" alt="Moldura Grossa" />
+    <footer>
+        <p>&copy; 2024 MIPOTI - Este software é software livre, licenciado sob a MIT License.</p>
+    </footer>
+
+
+    <script>
+        // JSON com várias perguntas do quiz
+        const quizData = [
+            {
+                "question": "Por que o Cerrado é chamado de 'berço das águas'?",
+                "choices": ["A) Porque possui poucas chuvas", "B) Por ser uma região com muitos lagos", "C) Porque é onde nascem muitos rios importantes", "D) Por sua vegetação densa"],
+                "correct": "C) Porque é onde nascem muitos rios importantes",
+                "explanation": "O Cerrado é chamado de 'berço das águas' porque é onde nascem muitos rios importantes do Brasil."
+            },
+            {
+                "question": "Qual é um dos rios que nasce no Cerrado?",
+                "choices": ["A) Rio Amazonas", "B) Rio Tocantins", "C) Rio Paraná", "D) Rio Paraguai"],
+                "correct": "B) Rio Tocantins",
+                "explanation": "O Rio Tocantins é um dos rios que nasce no Cerrado."
+            },
+            // Adicione mais perguntas conforme necessário
+        ];
+
+        let currentQuestionIndex = 0;
+
+        function carregarPergunta() {
+            if (currentQuestionIndex >= quizData.length) {
+                alert("Parabéns! Todas as perguntas foram respondidas.");
+                document.getElementById('quiz-container').innerHTML = "<h2>Você completou o quiz!</h2>";
+                return;
+            }
+
+            const perguntaAtual = quizData[currentQuestionIndex];
+            document.getElementById('question').textContent = perguntaAtual.question;
+            const choicesContainer = document.getElementById('choices');
+            choicesContainer.innerHTML = ""; // Limpa as opções anteriores
+
+            perguntaAtual.choices.forEach(choice => {
+                const li = document.createElement('li');
+                li.innerHTML = `<label><input type="radio" name="choice" value="${choice}"> ${choice}</label>`;
+                choicesContainer.appendChild(li);
+            });
+
+            document.getElementById('explanation').style.display = 'none'; // Oculta a explicação anterior
+            document.getElementById('next-button').style.display = 'none'; // Oculta o botão de próxima pergunta
+        }
+
+        document.getElementById('submit-button').addEventListener('click', () => {
+            const escolhaSelecionada = document.querySelector('input[name="choice"]:checked');
+            const explicacaoContainer = document.getElementById('explanation');
+
+            if (!escolhaSelecionada) {
+                alert('Por favor, selecione uma resposta!');
+                return;
+            }
+
+            const perguntaAtual = quizData[currentQuestionIndex];
+
+            if (escolhaSelecionada.value === perguntaAtual.correct) {
+                explicacaoContainer.textContent = `Correto! ${perguntaAtual.explanation}`;
+                explicacaoContainer.style.backgroundColor = '#d4edda';
+                explicacaoContainer.style.borderColor = '#c3e6cb';
+            } else {
+                explicacaoContainer.textContent = `Errado. ${perguntaAtual.explanation}`;
+                explicacaoContainer.style.backgroundColor = '#f8d7da';
+                explicacaoContainer.style.borderColor = '#f5c6cb';
+            }
+
+            explicacaoContainer.style.display = 'block';
+            document.getElementById('next-button').style.display = 'block'; // Exibe o botão de próxima pergunta
+        });
+
+        document.getElementById('next-button').addEventListener('click', () => {
+            currentQuestionIndex++;
+            carregarPergunta();
+        });
+
+        // Carrega a primeira pergunta ao carregar a página
+        carregarPergunta();
+    </script>
+</body>
+
+</html>
