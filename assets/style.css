@@ -224,31 +224,41 @@ main {
     width: 100%;
     z-index: 1000;
 }
+
 .menu-bar a {
     color: black;
     text-decoration: none;
     font-weight: bold;
     margin: 0 15px;
 }
+
 .menu-bar a:hover {
     text-decoration: underline;
 }
+
 .content {
-    margin-top: 60px; /* Para garantir que o conteúdo não fique sob o menu */
+    margin-top: 60px;
+    /* Para garantir que o conteúdo não fique sob o menu */
 }
+
 .question {
     margin-bottom: 20px;
+    font-size: 1.8em;
 }
+
 .choices {
     list-style: none;
     padding: 0;
 }
+
 .choices li {
     margin-bottom: 10px;
 }
+
 button {
     margin-top: 20px;
 }
+
 .explanation {
     margin-top: 20px;
     padding: 10px;
@@ -256,7 +266,15 @@ button {
     border: 1px solid #bce8f1;
     border-radius: 5px;
 }
+
 #next-button {
     display: none;
     margin: 1em;
+}
+
+#quiz-container {
+    box-shadow: 0px 4px 8px darkslategray;
+    padding: 4em;
+    background-color: WHEAT;
+    margin: 2em;
 }
