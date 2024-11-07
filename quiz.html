@@ -17,8 +17,7 @@
 
 <body>
     <div class="menu-bar">
-        <a href="inicio.html">Voltar ao MIPOTI</a>
-        <a href="sobre.html">Mais sobre o MIPOTI</a>
+        <a href="index.html">Voltar ao 🍃MIPOTI🍃</a>
     </div>
 
     <div id="inicio" class="content">
@@ -92,11 +91,11 @@
 
             if (escolhaSelecionada.value === perguntaAtual.correct) {
                 explicacaoContainer.textContent = `Correto! ${perguntaAtual.explanation}`;
-                explicacaoContainer.style.backgroundColor = '#d4edda';
+                explicacaoContainer.style.backgroundColor = 'rgb(55, 255, 85)';
                 explicacaoContainer.style.borderColor = '#c3e6cb';
             } else {
-                explicacaoContainer.textContent = `Errado. ${perguntaAtual.explanation}`;
-                explicacaoContainer.style.backgroundColor = '#f8d7da';
+                explicacaoContainer.textContent = `Incorreto. ${perguntaAtual.explanation}`;
+                explicacaoContainer.style.backgroundColor = 'rgb(255, 115, 88)';
                 explicacaoContainer.style.borderColor = '#f5c6cb';
             }
 
