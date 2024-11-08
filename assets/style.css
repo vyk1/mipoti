@@ -10,6 +10,7 @@ body {
     flex-direction: column;
     min-height: 100vh;
     font-size: 1.2em;
+    overflow-x: hidden;
 }
 
 main {
@@ -106,7 +107,6 @@ main {
 
 .esquerdo h2 {
     font-size: 1.8em;
-    font-weight: lighter;
 }
 
 .esquerdo h3 {
@@ -147,7 +147,6 @@ main {
 .direito {
     width: 50%;
     position: relative;
-    overflow: hidden;
 }
 
 .direito img {
@@ -155,23 +154,7 @@ main {
     height: auto;
 }
 
-/* Responsividade */
-@media (max-width: 1200px) {
-    .container {
-        flex-direction: column;
-        align-items: center;
-    }
 
-    .esquerdo,
-    .direito {
-        width: 100%;
-        text-align: center;
-    }
-
-    .texto-planta {
-        width: 90%;
-    }
-}
 
 /* Estilo para as imagens inseridas dinamicamente */
 .plantas {
@@ -270,7 +253,6 @@ button {
 
 #next-button {
     display: none;
-    margin: 1em;
 }
 
 #quiz-container {
@@ -278,4 +260,136 @@ button {
     padding: 4em;
     background-color: WHEAT;
     margin: 2em;
+}
+
+.alert-info {
+    padding: 15px;
+    background-color: #d1ecf1;
+    color: #0c5460;
+    border: 1px solid #bee5eb;
+    border-radius: 5px;
+    font-size: 1.1em;
+    text-align: center;
+    margin: 10px 0;
+}
+
+
+/* Configurações de responsividade */
+@media (max-width: 1200px) {
+    .container {
+        flex-direction: column;
+        align-items: center;
+        margin: 0;
+        /* Remover margem para evitar scroll */
+    }
+
+    main {
+        padding: 0;
+    }
+
+    .esquerdo,
+    .direito {
+        width: 100%;
+        padding: 10px;
+        /* Reduz padding para adaptar ao tamanho */
+        text-align: center;
+    }
+}
+
+@media (max-width: 768px) {
+    .imagens-informativo img {
+        width: 50%;
+    }
+
+    .container {
+        margin: 0;
+    }
+
+    .balao {
+        padding: 10px;
+        /* Reduz padding */
+    }
+
+    .direito img {
+        width: 50%;
+        height: auto;
+    }
+}
+
+@media (max-width: 480px) {
+
+    /* Ajustes adicionais para telas menores */
+    .esquerdo h1 {
+        font-size: 3em;
+    }
+
+    .esquerdo h2,
+    .esquerdo h3 {
+        font-size: 1.2em;
+    }
+
+    p {
+        font-size: 1em;
+    }
+
+    #btn-voltar {
+        font-size: 2em;
+        /* Reduz tamanho do botão */
+        margin: 0 10px;
+    }
+
+    .balao,
+    .informativo {
+        padding: 5px;
+        /* Padding menor para caixas de informação */
+    }
+}
+
+/* Responsividade para o quiz */
+@media (max-width: 768px) {
+    #quiz-container {
+        padding: 2em 1em; /* Ajuste de padding para telas pequenas */
+        margin: 1em 0;
+    }
+
+    .menu-bar {
+        font-size: 0.9em; /* Reduz o tamanho da fonte no menu */
+    }
+
+    .question {
+        font-size: 1.5em; /* Reduz o tamanho da fonte para perguntas */
+    }
+
+    .choices label {
+        font-size: 1em; /* Reduz o tamanho das opções */
+    }
+
+    #submit-button, #next-button {
+        padding: 10px 15px; /* Ajuste de padding para botões */
+    }
+}
+
+@media (max-width: 480px) {
+    #quiz-container {
+        width: 90%;
+        padding: 1em;
+    }
+
+    .menu-bar a {
+        margin: 0 10px; /* Ajuste de espaçamento entre links */
+    }
+
+    h1, .question {
+        font-size: 1.2em;
+    }
+
+    #submit-button, #next-button {
+        font-size: 0.9em;
+        width: 100%; /* Deixar os botões com 100% da largura */
+    }
+
+    footer p {
+        font-size: 0.8em;
+        text-align: center;
+    }
 }

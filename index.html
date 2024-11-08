@@ -4,7 +4,7 @@
 <head>
     <meta charset="UTF-8">
     <meta name="viewport" content="width=device-width, initial-scale=1.0">
-    <base href="/mipoti/">
+    <!-- <base href="/mipoti/"> -->
     <title>🍃MIPOTI - Conhecendo a Diversidade Biocultural do Brasil através de uma ferramenta digital🇧🇷</title>
     <meta name="description"
         content="MIPOTI - Conhecendo a Diversidade Biocultural do Brasil através de uma ferramenta digital">
@@ -696,6 +696,7 @@ Além disso, o angico gera uma resina natural chamada goma de angico, que sai do
                         listaPlantas.innerHTML = `
                         <img class="moldura" src="./assets/moldura-fina.png" alt="Moldura fina" />
                     <h1 class="plantas">(Algumas) Plantas do Bioma</h1>
+                    <h4 class="plantas alert-info">Clique em uma plantas para saber mais</h4>
                     <div class="plantas">
                         ${imagensPlantas}
                     </div>
@@ -818,14 +819,14 @@ Além disso, o angico gera uma resina natural chamada goma de angico, que sai do
                  <h1>MIPOTI</h1>
             <h2>Conhecendo a Diversidade Biocultural do Brasil</h2>
             <p>
-                Para interagir:
-                <br>O Mapa Interativo de Conhecimentos de Povos Tradicionais e Povos Indígenas (MIPOTI) é uma ferramenta
+                O Mapa Interativo de Conhecimentos de Povos Tradicionais e Povos Indígenas (MIPOTI) é uma ferramenta
                 digital que permite aos usuários descobrir conhecimentos etnobotânicos em diferentes biomas do Brasil,
                 destacando as práticas culturais relacionadas ao uso de plantas em comunidades tradicionais, incluindo
                 povos indígenas, quilombolas e povos de terreiro, entre outros.
-                <br><br>
-                Clique em um Bioma para começar a conhecer.
             </p>
+            <div class="alert-info">
+                <b>Clique em um Bioma para começar a conhecer.</b>
+            </div>
             <a href="sobre.html" class="btn">Sobre o MIPOTI</a>
             <a href="quiz.html" class="btn">(Quiz) Teste seus conhecimentos</a>
             <a href="vem-ai.html" class="btn">Materiais didáticos</a>
