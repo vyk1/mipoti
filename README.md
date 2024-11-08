@@ -1,6 +1,6 @@
-# MIPOTI: Explorando o Conhecimento Tradicional das Plantas
+# MIPOTI: Desvendando o Conhecimento Tradicional das Plantas
 
-O Mapa Interativo de Conhecimentos de Povos Tradicionais e Povos Indígenas (MIPOTI) é uma ferramenta digital que permite aos usuários explorar conhecimentos etnobotânicos em diferentes biomas do Brasil, destacando as práticas culturais relacionadas ao uso de plantas em comunidades tradicionais, incluindo povos indígenas, quilombolas e povos de terreiro.
+O Mapa Interativo de Conhecimentos de Povos Tradicionais e Povos Indígenas (MIPOTI) é uma ferramenta digital que permite aos usuários descobrir conhecimentos etnobotânicos em diferentes biomas do Brasil, destacando as práticas culturais relacionadas ao uso de plantas em comunidades tradicionais, incluindo povos indígenas, quilombolas e povos de terreiro.
 
 
 ## 🤝 Equipe
@@ -18,6 +18,20 @@ O Mapa Interativo de Conhecimentos de Povos Tradicionais e Povos Indígenas (MIP
       <a href="#">
         <sub>
           <b>Luciele Leonhardt Romanowski</b>
+        </sub>
+      </a>
+    </td>
+    <td align="center">
+      <a href="#">
+        <sub>
+          <b>Sofia Zank</b>
+        </sub>
+      </a>
+    </td>
+    <td align="center">
+      <a href="#">
+        <sub>
+          <b>Natalia Hanazaki</b>
         </sub>
       </a>
     </td>

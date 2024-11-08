@@ -3,68 +3,53 @@
 
 <head>
     <meta charset="UTF-8">
-    <base href="/mipoti/">
     <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <base href="/mipoti/">
     <title>🍃MIPOTI - Conhecendo a Diversidade Biocultural do Brasil através de uma ferramenta digital🇧🇷</title>
     <meta name="description"
         content="MIPOTI - Conhecendo a Diversidade Biocultural do Brasil através de uma ferramenta digital">
     <meta name="keywords" content="MIPOTI, Brasil, bioma, diversidade biocultural">
-    <meta name="author" content="Victoria Botelho Martins, Luciele Leonhardt Romanowski">
+    <meta name="author" content="Victoria Botelho Martins, Luciele Leonhardt Romanowski, Sofia Zank, Natalia Hanazaki">
     <meta name="robots" content="index, follow">
     <link rel="stylesheet" href="./assets/style.css">
+    <link href="./assets/fonts/Merriweather.css" rel="stylesheet">
 </head>
 
 <body>
-    <nav class="navbar">
-        <a href="index.html" class="active">Início</a>
-        <a href="sobre.html">Sobre</a>
-    </nav>
-
-    <div class="hero">
-        <h1>🍃MIPOTI🇧🇷</h1>
-        <h2>Conhecendo a Diversidade Biocultural do Brasil através de uma ferramenta digital</h2>
-        <p>Clique em um bioma para saber mais</p>
-    </div>
-
-    <div class="content" id="divBrasil">
-        <div class="map-container">
-            <!-- SVG Brasil -->
-            <div id="biome-map-container"></div>
-        </div>
-        <!-- Texto Mapa Brasil -->
-        <div id="mapa-text">
-            <h2 id="mapa-title">Selecione um bioma</h2>
-            <p id="mapa-description">Clique em um bioma no mapa para ver as informações (apenas Amazônia ou Cerrado,
-                no
-                momento).</p>
-        </div>
-    </div>
-
-    <div class="content" id="divBioma" style="display: none;">
-        <div class="map-container">
-            <!-- SVG Biomas -->
-            <div id="svg-biomas">
-                <span onclick="voltarParaBrasil()">Voltar para Brasil</span>
+    <main>
+        <img class="moldura" src="./assets/moldura-grossa.png" alt="Moldura Grossa">
+        <div class="container">
+            <div id="btn-voltar" style="display: none;">
+                <p onclick="voltarParaMapaBrasil()">← 🇧🇷 </p>
             </div>
-        </div>
-        <!-- Texto Biomas -->
-        <div id="bioma-text">
-            <h2 id="biome-title"></h2>
-            <p id="bioma-description"></p>
-            <p>Clique no marcador para mais informações sobre a planta selecionada</p>
-        </div>
-    </div>
+            <div class="esquerdo" id="texto-esquerdo">
+            </div>
 
+            <div class="direito">
+                <div id="div-brasil">
+                    <div id="mapa-brasil-biomas"></div>
+                </div>
+
+                <div id="div-bioma" style="display: none;">
+                    <div id="svg-bioma"></div>
+                </div>
+            </div>
+
+        </div>
+        <div id="lista-plantas"></div>
+        <div id="lista-referencias"></div>
+        <img class="moldura" src="./assets/moldura-grossa.png" alt="Moldura Grossa" />
+    </main>
     <footer>
-        <p>&copy; 2024 MIPOTI - Todos os direitos reservados</p>
+        <p>&copy; 2024 MIPOTI - Este software é software livre, licenciado sob a MIT License.</p>
     </footer>
 
     <script>
         // Inicializa a página com todos os SVGs escondidos
         document.querySelectorAll("svg").forEach(e => e.style = "display:none")
 
-        // Interações SVG mapa BR
-        const biomasKey = {
+        // Interações SVG mapa BR da NatGeo
+        const chavesBiomas = {
             "cls-1": {
                 nome: "Mata Atlântica",
             },
@@ -96,113 +81,760 @@
 
         const colecaoBiomas = {
             "Amazônia": {
-                title: "Amazônia",
-                description: "A Amazônia é o maior bioma do Brasil, caracterizado por uma vasta floresta tropical que abriga uma rica biodiversidade.",
-                mapId: "./assets/2-marcadores.svg",
-                marcadores: [
+                titulo: "Amazônia, A Grande Floresta Tropical",
+                descricao: `
+    <p>A Amazônia é o maior bioma do Brasil, abrigando uma enorme diversidade de plantas e animais. As copas das árvores são tão próximas umas das outras que, em algumas partes, dá até a impressão de que o céu é verde. Essa cobertura densa forma um teto natural que bloqueia parte da luz solar.</p>
+    <ul>
+    <li><b>Clima</b>: Quente e úmido, com muitas chuvas ao longo do ano.</li>
+    <li><b>Aparência</b>: Uma floresta muito densa, onde grandes árvores dominam a paisagem e suas copas formam um “teto” verde.</li>
+    <li><b>Vegetação</b>: A vegetação é tão fechada que pouca luz solar chega ao solo. Isso dificulta o crescimento de algumas plantas no chão da floresta, que recebem menos energia solar para fazer fotossíntese. Em vez disso, essas plantas adaptadas ao ambiente crescem nas camadas inferiores, onde a luz é mais escassa.</li>
+    <li><b>Rios</b>: O Rio Amazonas, um dos mais longos do mundo, nasce nas geleiras dos Andes, uma cadeia de montanhas na América do Sul. As águas de degelo dessas geleiras são fundamentais para o nascimento do rio, que depois percorre milhares de quilômetros até chegar ao Oceano Atlântico. A importância das geleiras é imensa, pois elas garantem um fluxo contínuo de água para o rio, mesmo nas épocas mais secas do ano.</li>
+    <li><b>Curiosidade</b>: Um famoso morador é o boto-cor-de-rosa, que vive nas águas dos rios, ao lado de outras espécies únicas como o peixe-boi e a ariranha.</li>
+    </ul>
+`,
+                tipoInformativo: "Para ir além",
+                textoInformativo: "Uma espécie endêmica é um ser vivo que só existe em um lugar do mundo. Por exemplo, alguns animais e plantas só existem em certas ilhas, florestas ou no Bioma Amazônia.",
+                caminhoSvg: "./assets/amazonia/amazonia.png",
+                imagens: ["./assets/amazonia/amazonia-info.png"],
+                referencias: [
+                    "Instituto Nacional de Pesquisas da Amazônia (INPA)",
+                    "Portal da Amazônia - Ministério do Meio Ambiente",
+                    "Livro das árvores Tikuna",
+                    "LORENZI, H.; MATOS, F. J. A.; Plantas Medicinais no Brasil: nativas e exóticas. Nova Odessa, SP: Instituto Plantarum, 2002.",
+                    "LORENZI, H.; MATOS, F. J. A.; Plantas Medicinais no Brasil: nativas e exóticas. Nova Odessa, SP: Instituto Plantarum, 2008.",
+                    "<a href=\"https://ainfo.cnptia.embrapa.br/digital/bitstream/item/77028/1/folderguaranazeiro.pdf\" target=\"_blank\" rel=\"noopener noreferrer\">Embrapa - Folder Guaranazeiro</a>",
+                    "<a href=\"https://www.icbim.ufu.br/system/files/conteudo/copaifera_v9_08-10-2021.pdf\" target=\"_blank\" rel=\"noopener noreferrer\">ICBIM - Copaifera</a>"
+                ],
+                plantas: [
                     {
-                        id: "a1",
-                        title: "Planta 1",
-                        description: "..."
+                        id: "andiroba",
+                        nomePopular: "Andiroba",
+                        nomeCientifico: "Carapa guianensis",
+                        descricao: "A andiroba é uma árvore majestosa que cresce nas florestas brasileiras, especialmente na Amazônia! Ela pode ficar bem alta, com tronco grosso e reto. A andiroba tem flores pequeninas e brancas, que aparecem uma vez por ano, atraindo polinizadores, além de enfeitarem a árvore. A andiroba produz frutos que parecem pequenas cápsulas duras. Quando esses frutos caem no chão, eles se abrem e revelam sementes grandes e cheias de óleo. Esse óleo, que é conhecido como óleo de andiroba, é usado pelas comunidades tradicionais como remédio natural para aliviar dores, tratar picadas de insetos e até cuidar da pele. Para muitos animais da floresta, como roedores, as sementes da andiroba também servem de alimento.",
+                        foto: "./assets/amazonia/andiroba.png",
+                        icone: "./assets/amazonia/andiroba-icone.png",
+                        informacoesPovo: [
+                            {
+                                nome: "Povos com Conhecimento Tradicional Associado",
+                                informacoes: [
+                                    "Tariana",
+                                    "Desana",
+                                    "Tuyuca",
+                                    "Pira-tapuya",
+                                    "Yanomami",
+                                    "Tukano",
+                                    "Tikuna",
+                                    "Baniwa",
+                                    "Baré",
+                                    "Wajãpi",
+                                    "Borari-Arapiuns",
+                                    "Curandeiros",
+                                    "Ribeirinhos",
+                                    "Quilombolas",
+                                    "Agricultores(as) familiares"
+                                ],
+                                mais: ["<a href='vem-ai.html'>Sobre o Povo Tikuna</a>"]
+                            }
+                        ],
                     },
                     {
-                        id: "a2",
-                        title: "Planta 2",
-                        description: "..."
+                        id: 'copaiba',
+                        nomePopular: "Copaíba",
+                        nomeCientifico: "Copaifera sp.",
+                        descricao: "A copaíba é uma árvore incrível que cresce em várias regiões do Brasil, especialmente na Amazônia! Ela pode ficar bem alta, e uma das coisas mais especiais sobre essa árvore é o óleo que ela produz. Dentro do tronco da copaíba, existe um óleo que é usado por muitas comunidades como um remédio natural para ajudar a tratar machucados e até picadas de insetos. Esse óleo é tão famoso que a copaíba também é chamada de \"árvore do óleo\". Além disso, a copaíba ajuda a proteger a floresta e é o lar de muitos animais, como pássaros e pequenos mamíferos que se abrigam em seus galhos. A copaíba tem flores pequenas, geralmente de cor branca ou amarelo-clara, e crescem em cachos, dando um charme especial à árvore. Embora sejam discretas e pequeninas, essas flores atraem informações que ajudam na polinização. A copaíba também dá frutos, que são pequenas vagens duras com uma semente dentro. Esses frutos não são comestíveis para nós, mas são importantes para a alimentação de alguns animais da floresta. A semente tem uma camada oleosa que é apreciada por pássaros e outros animais que ajudam a espalhar as sementes pela floresta, permitindo que novas copaíbas cresçam.",
+                        foto: "./assets/amazonia/copaiba.png",
+                        informacoesPovo: [
+                            {
+                                nome: "Povos com Conhecimento Tradicional Associado",
+                                informacoes: [
+                                    "Wajãpi",
+                                    "Guarani",
+                                    "Ribeirinhos",
+                                    "Quilombolas",
+                                    "Caiçaras",
+                                    "Agricultores(as) familiares"
+                                ],
+                                mais: ["<a href='vem-ai.html'>Sobre Caiçaras</a>"]
+                            }
+                        ],
                     },
+                    {
+                        id: "guaraná",
+                        nomePopular: "Guaraná",
+                        nomeCientifico: "Paullinia cupana",
+                        descricao: "É um arbusto de hábito trepador* que cresce naturalmente na região amazônica. Ele tem folhas grandes e flores pequenas, que aparecem em cachos de cor branco-amarelada. Mas o que mais chama a atenção são seus frutos: quando amadurecem, ficam vermelhos e se abrem, revelando sementes pretas envoltas em uma camada branca, que lembram pequenos “olhos”. Essas sementes são famosas por conterem cafeína, que dá energia e é usada para fazer sucos, chás e até refrigerantes. Comunidades indígenas conhecem e usam o guaraná há muito tempo, e ele continua sendo valorizado por seu sabor e efeito estimulante, que ajuda a aumentar a disposição e a concentração!<br><br>*Isso mesmo! O guaranazeiro é descrito como um arbusto de hábito trepador, o que significa que ele tem um porte de arbusto, mas com a tendência de se apoiar em outras plantas ou estruturas à medida que cresce, especialmente em busca de luz em seu ambiente natural. Então, ele não é uma trepadeira completa (como as lianas), mas sim um arbusto que pode se comportar como tal em determinadas condições. Essa classificação reflete melhor sua estrutura e crescimento natural na floresta amazônica.",
+                        foto: "./assets/amazonia/guarana.png",
+                        informacoesPovo: [
+                            {
+                                nome: "Povos com Conhecimento Tradicional Associado",
+                                informacoes: [
+                                    "Sateré Mawé",
+                                    "Curandeiros(as)",
+                                    "Pescadores(as) artesanais",
+                                    "Extrativistas",
+                                    "Ribeirinhos",
+                                    "Raizeiros",
+                                    "Agricultores(as) familiares"
+                                ],
+                                mais: ["<a href='vem-ai.html'>Sobre o Povo Raizeiros</a>"]
+                            }
+                        ],
+                    }
                 ]
+            },
+            "Caatinga": {
+                titulo: "Caatinga, O Sertão do Sol Forte",
+                descricao: `
+                <p>A Caatinga é um bioma único, que só existe no Brasil. Com clima quente e seco, plantas e animais aqui desenvolveram estratégias para economizar água.</p>
+<ul>
+    <li><b>Clima</b>: Quente e seco, com chuvas apenas em algumas épocas do ano.</li>
+    <li><b>Aparência</b>: Árvores baixas, com galhos retorcidos e espinhos. Durante a seca, algumas plantas perdem suas folhas para conservar água.</li>
+    <li><b>Vegetação</b>: Vegetação adaptada ao clima seco, com a presença de plantas xerófitas com muitas folhas pequenas e espinhos, que evitam a perda de água para o ambiente.</li>
+    <li><b>Rios</b>: Muitos rios da Caatinga são “intermitentes”, ou seja, secam em algumas épocas do ano.</li>
+    <li><b>Curiosidade</b>: Animais como o tatu-bola e plantas como o mandacaru conseguem sobreviver no clima seco deste bioma.</li>
+    </ul>
+`,
+                tipoInformativo: "Para saber mais",
+                textoInformativo: `Plantas xerófitas são plantas que possuem mecanismos especializados para sobreviver em ambientes áridos ou semiáridos, como a Caatinga e áreas do Cerrado, onde a água é escassa por longos períodos. As xerófitas reduzem a transpiração e fornecem armazenar ou captar água de forma muito eficiente, permitindo que sobrevivam em condições de seca intensa. Exemplos:
+                <ul>
+                    <li>Mandacaru (Cereus jamacaru): Um tipo de cacto com espinhos e caule suculento, que armazena água por períodos de seca. Suas flores são grandes e visíveis, abrindo-se à noite.</li>
+                    <li>Juazeiro (Ziziphus joazeiro): Uma árvore de folhas pequenas e rígidas, que ajuda a reduzir a transpiração. É uma planta importante para o sustento da fauna local, pois fornece frutos mesmo durante a seca.</li>
+                </ul>`,
+                caminhoSvg: "./assets/caatinga/caatinga.png",
+                imagens: [],
+                referencias: [
+                    "Fundação Cearense de Meteorologia e Recursos Hídricos (FUNCEME)",
+                    "Centro de Referência em Informação Ambiental (CRIA)",
+                    "CUNHA, M. C. L.; FERREIRA, R. A. Aspectos Morfológicos da Semente e do Desenvolvimento da Planta Jovem de Amburana cearensis (Arr. Cam.) A. C. Smith – Cumaru – Leguminosae Papilionoideae. Revista Brasileira de Sementes, vol. 25, n. 2, p.89-96, 2003.",
+                    "LIMA, B. G. Caatinga: espécies lenhosas e herbáceas. 1. ed. Mossoró, RN: EdUfersa, 2011. 316 p.",
+                    "LORENZI, H. Árvores Brasileiras: Manual de Identificação e Cultivo de Plantas Arbóreas Nativas do Brasil. 5. ed. Nova Odessa, SP: Instituto Plantarum, 2008. Vol. 1. 384 p.",
+                    "LORENZI, H.; MATOS, F. J. A. Plantas Medicinais no Brasil: Nativas e Exóticas. 2. ed. Nova Odessa, SP: Instituto Plantarum, 2008. Vol. 2. 576 p.",
+                    "MAIA, G. N. Caatinga: árvores e arbustos e suas utilidades. 2. ed. Fortaleza, CE: Printcolor Gráfica e Editora, 2012. 413 p.",
+                    "RIZZINI, C. T. Árvores e Madeiras Úteis do Brasil: Manual de Dendrologia Brasileira. 2. ed. São Paulo, SP: Blucher, 1978. 304 p."
+                ],
+                plantas: [
+                    {
+                        id: "aroeira-do-sertao",
+                        nomePopular: "Aroeira-do-sertão",
+                        nomeCientifico: "Astronium urundeuva",
+                        descricao: `
+                    A aroeira-do-sertão ( Astronium urundeuva ) é uma árvore resistente que cresce nas regiões secas da Caatinga. Ela tem um tronco grosso e madeira muito dura, sendo conhecida por sua capacidade de sobreviver em ambientes com pouca água. Suas são pequenas folhas, ajudando a reduzir a perda de água no calor intenso. A aroeira-do-sertão produz pequenas flores amarelas, que atraem abelhas e outros insetos. Ela também dá frutos pequenos e duros que, apesar de não serem comestíveis para nós, ajudam a alimentar os animais locais. A madeira da aroeira é valorizada por sua durabilidade, mas por isso a árvore acabou sendo ameaçada pelo desmatamento. 
+O conhecimento tradicional associado à aroeira-do-sertão é vasto, especialmente entre as comunidades da Caatinga que utilizam essa árvore há gerações. A casca, por exemplo, é conhecida por suas propriedades medicinais e é utilizada em infusões e chás para ajudar a tratar inflamações, problemas digestivos e feridas na pele. A resina da aroeira também é aproveitada em tratamentos naturais, sendo usada para aliviar dores e infecções. Hoje, iniciativas de conservação buscam proteger esse conhecimento tradicional associado, que é essencial para a cultura e a saúde das comunidades locais e da Caatinga. Proteger a aroeira-do-sertão é importante para preservar a diversidade biocultural da Caatinga!
+                    `,
+                        foto: "./assets/caatinga/aroeira-do-sertao.png",
+                        informacoesPovo: [
+                            {
+                                nome: "Povos com Conhecimento Tradicional Associado",
+                                informacoes: [
+                                    "Fulni-ô",
+                                    "Pipipã",
+                                    "Raizeiras",
+                                    "Quilombolas",
+                                    "Agricultores(as) familiares"
+                                ],
+                                mais: ["<a href='vem-ai.html'>Sobre Quilombolas</a>"]
+                            }
+                        ],
+                    },
+                    {
+                        id: "emburana-de-cheiro",
+                        nomePopular: "Emburana-de-cheiro",
+                        nomeCientifico: "Amburana cearensis",
+                        descricao: `
+                        A emburana-de-cheiro ( Amburana cearensis ), também conhecida como cumaru, é uma árvore típica da Caatinga, famosa pelo aroma doce de sua casca e madeira. Ela pode atingir grandes alturas e tem folhas que caem na estação seca, ajudando a planta a economizar água. Suas flores são pequenas e de cor branca a amarela, atraindo polinizadores importantes, como as abelhas. A emburana também produz frutos em forma de vagem, que contém sementes aromáticas e usadas tradicionalmente.
+O conhecimento tradicional em torno da emburana-de-cheiro é muito valioso: a casca é utilizada por comunidades locais em infusões e chás para aliviar problemas respiratórios, como tosse e asma, além de dores e inflamações. As sementes, ricas em um aroma característico, são usadas como ingrediente em caseiras e medicinais. A emburana-de-cheiro é uma planta essencial na cultura e medicina popular da Caatinga, e sua conservação é importante para proteger tanto a espécie quanto o conhecimento tradicional associado a ela.
+`,
+                        foto: "./assets/caatinga/emburana-de-cheiro.png",
+                        informacoesPovo: [
+                            {
+                                nome: "Povos com Conhecimento Tradicional Associado",
+                                informacoes: [
+                                    "Fulni-ô",
+                                    "Raizeiras",
+                                    "Quilombolas",
+                                    "Agricultores(as) familiares"
+                                ],
+                                mais: ["<a href='vem-ai.html'>Sobre Fulni-ô</a>"]
+                            }
+                        ],
+                    },
+                    {
+                        id: "angico",
+                        nomePopular: "Angico",
+                        nomeCientifico: "Anadenanthera colubrina",
+                        descricao: `&ved=0CBQQjRxqFwoTCPD3vJ6Mu4kDFQAAAAAdAAAAABAE
+O angico ( Anadenanthera colubrina ) é uma árvore comum na Caatinga, mas também cresce em outras regiões do Brasil. Ele tem um tronco forte e pode ficar bem alto, tornando-se bem visível na paisagem seca. Suas pequenas folhas caem durante a estação seca, ajudando a planta a conservar água. Na época da floração, o angico produz pequenas flores brancas amareladas, que atraem polinizadores importantes para o ecossistema.
+Além disso, o angico gera uma resina natural chamada goma de angico, que sai do tronco quando a árvore sofre algum corte. Essa goma é tradicionalmente usada por comunidades para fins específicos, valorizada por suas propriedades e benefícios. Os frutos do angico são vagens duras com várias sementes, auxiliando na reprodução e dispersão da planta na Caatinga.
+`,
+                        foto: "./assets/caatinga/angico.png",
+                        informacoesPovo: [
+                            {
+                                nome: "Povos com Conhecimento Tradicional Associado",
+                                informacoes: [
+                                    "Fulni-ô",
+                                    "Pipipã",
+                                    "Guarani Kaiowá",
+                                    "Guarani",
+                                    "Ribeirinhos(as)",
+                                    "Raizeiras",
+                                    "Quilombolas",
+                                    "Agricultores(as) familiares"
+                                ],
+                                mais: ["<a href='vem-ai.html'>Sobre Sobre Agricultores(as) familiares</a>"]
+                            }
+                        ],
+                    }
+                ],
+
             },
             "Cerrado": {
-                title: "Cerrado",
-                description: "O Cerrado é o segundo maior bioma do Brasil, caracterizado por uma vegetação de savana com árvores baixas e arbustos.",
-                mapId: "./assets/2-marcadores.svg",
-                marcadores: [
+                titulo: "Cerrado, Berço das Águas",
+                descricao: `
+<p>O Cerrado é uma savana brasileira, famosa por sua vegetação resistente que sobrevive a incêndios naturais. Muitas plantas do Cerrado, após os incêndios, florescem de maneira ainda mais intensa, colorindo a paisagem. Esse bioma é conhecido como “berço das águas” porque é onde nascem rios importantes, como o Rio Tocantins e o Rio São Francisco.</p>
+                    <ul>
+                        <li><b>Clima</b>: Tropical, com uma estação seca e outra chuvosa.</li>
+                        <li><b>Aparência</b>: Árvores de casca grossa e raízes profundas, gramíneas e flores que brotam após o fogo. Esse processo de queimadas naturais também ajuda a quebrar a dormência de algumas sementes, permitindo que elas germinem e cresçam após o incêndio.</li>
+                        <li><b>Vegetaçao</b>: Vegetação adaptada ao fogo, com raízes longas e cascas grossas, incluindo muitas plantas com flores coloridas.</li>
+                        <li><b>Curiosidade</b>: É o lar de animais como o lobo-guará e o tamanduá-bandeira, que habitam as áreas de cerrado aberto.</li>
+                    </ul>
+`,
+                tipoInformativo: "Para saber mais",
+                textoInformativo: "<b>Dormência</b> é um estado em que as sementes “dormem” e não germinam. É uma estratégia das plantas para esperar o momento certo de crescer, como depois de uma chuva ou uma queimada. Algumas sementes têm sua dormência quebrada apenas após passarem pelo trato digestivo de animais, o que ajuda a dispersá-las e aumenta as chances de encontrar um local ideal para germinar.",
+                caminhoSvg: "./assets/cerrado/cerrado.png",
+                imagens: [],
+                referencias: [
+                    "Instituto Chico Mendes de Conservação da Biodiversidade (ICMBio)",
+                    "Agência Nacional de Águas (ANA)",
+                    "<a href=\"https://br.boell.org/pt-br/2022/03/30/farmacopeia-popular-do-cerrado\" target=\"_blank\" rel=\"noopener noreferrer\">Farmacopeia popular do cerrado</a>",
+                ],
+                plantas: [
                     {
-                        id: "c1",
-                        title: "Planta 1",
-                        description: "..."
+                        id: "barbatimao",
+                        nomePopular: "Barbatimão",
+                        nomeCientifico: "Stryphnodendron adstringens",
+                        descricao: "O barbatimão é uma árvore de médio porte típica do Cerrado, que pode atingir até 5 metros de altura. Ela possui um tronco escuro e casca grossa, rico em taninos, conhecido por suas propriedades adstringentes. Suas folhas são pequenas e delicadas, dispostas em pares, e suas flores são discretas, de cor amarelada, aparecendo geralmente na primavera e atraindo abelhas e outros polinizadores. O fruto do barbatimão é uma vagem de cor marrom escura, que se abre ao amadurecer, liberando sementes. As comunidades locais utilizam tradicionalmente a casca do barbatimão em cuidados com a pele e outros usos, devido ao seu efeito adstringente.",
+                        foto: "./assets/cerrado/barbatimao.png",
+                        informacoesPovo: [
+                            {
+                                nome: "Povos com Conhecimento Tradicional Associado",
+                                informacoes: [
+                                    "Raizeiros",
+                                    "Pescadores(as) artesanais",
+                                    "Quilombolas",
+                                    "Agricultores(as) familiares"
+                                ]
+                            }
+                        ],
                     },
                     {
-                        id: "c2",
-                        title: "Planta 2",
-                        description: "..."
+                        id: "pequi",
+                        nomePopular: "Pequi",
+                        nomeCientifico: "Caryocar brasiliense",
+                        descricao: "O pequi é uma árvore icônica do Cerrado e uma das mais apreciadas por suas frutas saborosas e aromáticas, além de suas propriedades tradicionais. A árvore pode atingir até 10 metros de altura e, durante a acústica, suas grandes flores amarelas e perfumadas se destacam na paisagem, atraindo abelhas, pássaros e morcegos que auxiliam na polinização. O fruto do pequi tem casca verde e espinhosa e guarda uma polpa amarela de sabor marcante e aroma característico. Cuidado: dentro da polpa, o caroço contém espinhos finos e rígidos! Na tradição popular, o pequi é usado tanto na culinária quanto em práticas caseiras. O óleo extraído de suas sementes é um dos produtos mais valorizados e utilizados em várias regiões. ",
+                        foto: "./assets/cerrado/pequi.png",
+                        informacoesPovo: [
+                            {
+                                nome: "Povos com Conhecimento Tradicional Associado",
+                                informacoes: [
+                                    "Quilombolas",
+                                    "Extrativistas",
+                                    "Raizeiros",
+                                    "Agricultores(as) familiares"
+                                ]
+                            }
+                        ],
                     },
+                    {
+                        id: "calunga",
+                        nomePopular: "Calunga",
+                        nomeCientifico: "Echinodorus grandiflorus",
+                        descricao: "A calunga é uma planta herbácea que cresce principalmente nas áreas mais úmidas do Cerrado, como margens de rios e brejos. Suas folhas largas e lisas, em formato oval, e suas flores brancas surgem em hastes longas e delicadas, onde as flores da calunga se desenvolvem, elevando-as acima da planta e facilitando a polinização. Essa planta é conhecida entre as comunidades tradicionais por suas propriedades e usos em infusões e caseiras. A calunga é usada em práticas de saúde populares, e as comunidades valorizam tanto as folhas quanto as raízes em diversos benefícios. Seu cultivo e coleta sustentável são essenciais para a continuidade do uso tradicional e para a preservação da biodiversidade local.",
+                        foto: "./assets/cerrado/calunga.png",
+                        informacoesPovo: [
+                            {
+                                nome: "Povos com Conhecimento Tradicional Associado",
+                                informacoes: [
+                                    "Raizeiros",
+                                    "Quilombolas",
+                                    "Ribeirinhos",
+                                    "Agricultores(as) familiares"
+                                ]
+                            }
+                        ],
+                    }
                 ]
             },
+            "Pantanal": {
+                titulo: "Pantanal, O Grande Alagado do Brasil",
+                descricao: `
+<p>O Pantanal é uma das maiores áreas úmidas do planeta. Na época das chuvas, ele se transforma e apresenta águas que cobrem o solo e formam um imenso espelho d'água. Durante a estação seca, essas águas diminuem, revelando campos e áreas secas.</p>
+<ul>
+    <li><b>Clima</b>: Tropical, com uma estação chuvosa e outra seca bem marcada.</li>
+    <li><b>Aparência</b>: Campos alagados durante as chuvas e áreas secas na estação seca. Vegetação adaptada para resistir a períodos alagados e secos.</li>
+    <li><b>Vegetaçao</b>: Apresenta plantas aquáticas e plantas adaptadas a solos alagados, incluindo raízes pneumatóforas.</li>
+    <li><b>Rios</b>: O Rio Paraguai é o principal rio do Pantanal, ajudando a alagar a região.</li>
+    <li><b>Curiosidade</b>: É o lar do tuiuiú, capivaras e jacarés.</li>
+</ul>
+            `,
+                tipoInformativo: "Para saber mais",
+                textoInformativo: "As raízes pneumatóforas funcionam como pequenas “chaminés”, permitindo que a planta respire mesmo quando o solo está coberto de água. São típicas de plantas que vivem em ambientes com solos alagados ou encharcados, mas que não estão totalmente submersas, como ocorre nos manguezais. Elas permitem que a planta respire em solos pobres em oxigênio.",
+                caminhoSvg: "./assets/pantanal/pantanal.png",
+                imagens: [],
+                referencias: [
+                    "Embrapa Pantanal"
+                ],
+                plantas: [
+                    {
+                        id: "jatoba",
+                        nomePopular: "Jatobá",
+                        nomeCientifico: "Hymenaea stigonocarpa",
+                        descricao: "O jatobá é uma árvore nativa do Pantanal, conhecida por sua cascata grossa e flores esbranquiçadas, que florescem principalmente no final da estação seca. Seus frutos possuem uma casca dura e contém uma polpa adocicada e nutritiva, amplamente utilizada pelas comunidades locais.",
+                        foto: "./assets/pantanal/jatoba.png",
+                        informacoesPovo: [
+                            {
+                                nome: "Povos com Conhecimento Tradicional Associado",
+                                informacoes: [
+                                    "Guató",
+                                    "Raizeiros",
+                                    "Ribeirinhos",
+                                    "Quilombolas"
+                                ]
+                            }
+                        ],
+                    },
+                    {
+                        id: "jenipapo",
+                        nomePopular: "Jenipapo",
+                        nomeCientifico: "Genipa americana",
+                        descricao: "O jenipapo é uma árvore de médio porte que cresce em áreas alagadas do Pantanal, produzindo frutos com uma polpa rica e aromática, usada tradicionalmente para sucos e concentrados caseiros. Suas flores são esbranquiçadas e atraem polinizadores locais. O jenipapo também é conhecido pelo uso do extrato de seus frutos como tinta natural, amplamente utilizado para pintura corporal e artesanal por diversas comunidades tradicionais.",
+                        foto: "./assets/pantanal/jenipapo.png",
+                        informacoesPovo: [
+                            {
+                                nome: "Povos com Conhecimento Tradicional Associado",
+                                informacoes: [
+                                    "Guató",
+                                    "Terena",
+                                    "Ribeirinhos",
+                                    "Quilombolas"
+                                ]
+                            }
+                        ],
+                    },
+                    {
+                        id: "bocaiuva",
+                        nomePopular: "Bocaiúva",
+                        nomeCientifico: "Acrocomia aculeata",
+                        descricao: "A bocaiúva , também chamada de “coquinho” ou “macambira”, é uma palmeira do Pantanal que produz frutos redondos e com uma polpa adocicada e amarelada. Os frutos da bocaiúva são utilizados na alimentação tradicional, em sucos, doces e farinhas. A palmeira também é importante para a fauna, pois suas frutas são consumidas por diversas espécies. Conhecida por seu valor nutricional, a bocaiúva tem um papel importante nas comunidades do Pantanal, que transmitem os saberes sobre o manejo sustentável dessa palmeira.",
+                        foto: "./assets/pantanal/bocaiuva.png",
+                        informacoesPovo: [
+                            {
+                                nome: "Povos com Conhecimento Tradicional Associado",
+                                informacoes: [
+                                    "Ribeirinhos",
+                                    "Quilombolas",
+                                    "Terena",
+                                    "Guató"
+                                ]
+                            }
+                        ],
+                    }
+                ]
+            },
+            "Pampa": {
+                titulo: "Pampa, Os Campos do Sul do Brasil",
+                descricao: `
+                <p>O Pampa é uma imensa extensão de campos verdes e planos, localizada no sul do Brasil, com áreas que se estendem para o Uruguai e a Argentina.Esse bioma é conhecido por seus campos abertos, onde predominam gramíneas e algumas árvores baixas.É uma paisagem onde o céu parece se encontrar com a terra, e é muito importante para a cultura gaúcha, descrito em várias músicas, contos e poesias.</p>
+<ul>
+    <li><b>Clima</b>: Temperado, com estações bem definidas. Verões quentes e invernos frios.</li>
+    <li><b>Aparência</b>: Grandes campos verdes e abertos, com poucas árvores e muito espaço. A paisagem é dominada por gramíneas, outras plantas herbáceas e arbustos. O Pampa também abriga formações geológicas únicas, como o Cerro do Jarau, uma elevação que se destaca na paisagem plana e que, segundo estudos, é uma cratera de impacto de um meteorito que caiu na região há cerca de 117 milhões de anos. Além de sua importância geológica, o Cerro é cercado por lendas, como a da "Salamanca do Jarau", uma gruta encantada que, segundo as histórias locais, abrigaria seres mágicos e tesouros escondidos.</li>
+    <li><b>Vegetação</b>: A vegetação predominante é rasteira, composta principalmente por gramíneas e plantas herbáceas. No entanto, o Pampa também abriga comunidades vegetais únicas, como os butiazais , que são áreas com uma grande concentração de butiazeiros (Butia odorata). Essas palmeiras, típicas da região, formam uma paisagem característica e fornecem frutos que servem de alimento para muitos animais e são utilizados na culinária local. Os butiazais são encontrados principalmente na Campanha Gaúcha, destacando-se nas regiões de Tapes, Barra do Ribeiro e Palmares do Sul, entre outras localidades.</li>
+    <li><b>Curiosidade</b>: O Pampa é o lar de aves como o quero-quero e a ema, além de espécies de plantas que só existem nessa região.</li>
+</ul>
+                `,
+                tipoInformativo: "Para saber mais",
+                textoInformativo: "Gramíneas são um tipo específico de planta herbácea com folhas estreitas e compridas e caules ocos, como aquelas que formam pastagens naturais e vegetação rasteira em campos abertos. Plantas herbáceas , por outro lado, são todas as plantas que possuem caules macios e flexíveis, sem partes lenhosas (como troncos). Elas incluem não apenas as gramíneas, mas também outras plantas de caule mole, como diversas flores silvestres e algumas ervas aromáticas.",
+                caminhoSvg: "./assets/pampa/pampa.png",
+                imagens: [],
+                referencias: [
+                    "SIMÕES, C. M. O. Plantas da Medicina Popular do Rio Grande do Sul. Porto Alegre: UFRGS, 1986.",
+                    "<a href=\"https://fld.com.br/wp-content/uploads/2019/06/Livro-povos-e-comunidades-tradicionais-do-pampa.pdf\" target=\"_blank\" rel=\"noopener noreferrer\">Povos e Comunidades Tradicionais do Pampa</a>",
+                    "<a href=\"https://pdfs.semanticscholar.org/d4a9/21dd26d687210979c485c235b3b624acbe33.pdf\" target=\"_blank\" rel=\"noopener noreferrer\">Artigo no Semantic Scholar</a>",
+                    "<a href=\"https://pib.socioambiental.org/pt/Povo%3AKaingang\" target=\"_blank\" rel=\"noopener noreferrer\">Povo Kaingang - Socioambiental</a>"
+                ],
+                plantas: [
+                    {
+                        id: "marcela",
+                        nomePopular: "Marcela",
+                        nomeCientifico: "Achyrocline satureioides",
+                        descricao: "A Marcela (Achyrocline satureioides) é uma planta pequena e aromática típica do Pampa e de outras regiões do Brasil. Ela cresce em campos abertos e é facilmente reconhecida por suas flores amareladas e folhinhas cobertas por uma penugem suave. A marcela floresce geralmente no início do outono, época em que é tradicionalmente colhida pelas comunidades locais. Conhecida pelo uso em infusões e chás, a marcela é valorizada pelo saber popular, transmitida ao longo de gerações, e tem importância cultural no sul do Brasil. Durante a Semana Santa, por exemplo, muitas pessoas colhem a marcela ao amanhecer, mantendo uma tradição que reflete o vínculo das comunidades com o ambiente do Pampa.",
+                        foto: "./assets/pampa/marcela.png",
+                        informacoesPovo: [
+                            {
+                                nome: "Povos com Conhecimento Tradicional Associado",
+                                informacoes: [
+                                    "Laklãnõ-Xokleng",
+                                    "Guarani",
+                                    "Raizeiras",
+                                    "Povos de Terreiro",
+                                    "Pescadores(as) artesanais",
+                                    "Quilombolas",
+                                    "Caiçaras",
+                                    "Agricultores(as) familiares"
+                                ]
+                            }
+                        ],
+                    },
+                    {
+                        id: "carqueja",
+                        nomePopular: "Carqueja",
+                        nomeCientifico: "Baccharis trimera",
+                        descricao: "A carqueja ( Bacharis trimera ) é uma planta arbustiva comum no Pampa e em outras regiões do Brasil. Ela possui um caule verde e folhas reduzidas, que lembram pequenas asas ao longo do caule, o que facilita sua identificação no campo. A carqueja cresce bem em solos de campo aberto e resiste ao clima característico da região. Tradicionalmente, a carqueja é muito usada por comunidades locais em infusões e chás, e seu conhecimento popular tem sido transmitido por gerações. No sul do Brasil, ela é valorizada por suas propriedades naturais e faz parte da cultura do Pampa, reforçando o vínculo das pessoas com a biodiversidade local e com o uso sustentável das plantas nativas.",
+                        foto: "./assets/pampa/carqueja.png",
+                        informacoesPovo: [
+                            {
+                                nome: "Povos com Conhecimento Tradicional Associado",
+                                informacoes: [
+                                    "Laklãnõ-Xokleng",
+                                    "Guarani",
+                                    "Raizeiras",
+                                    "Povos de Terreiro",
+                                    "Pescadores(as) artesanais",
+                                    "Extrativistas",
+                                    "Quilombolas",
+                                    "Caiçaras",
+                                    "Agricultores(as) familiares"
+                                ]
+                            }
+                        ],
+
+                    }
+                    ,
+                    {
+                        id: "Butiazeiro",
+                        nomePopular: "Butiazeiro",
+                        nomeCientifico: "Butia capitata",
+                        descricao: "O butiazeiro (Butia odorata), também conhecido como butiá, é uma palmeira nativa do bioma Pampa, especialmente nas regiões do sul do Brasil. Ela é característica dos butiazais , áreas onde se concentram grandes paisagens dessas palmeiras, formando paisagens únicas na Campanha Gaúcha. O butiazeiro é resistente e adaptado ao clima do Pampa, suportando ventos fortes e períodos de seca. Seus frutos, conhecidos como butiás, são pequenos e arredondados, com uma cor que varia entre o amarelo e o alaranjado. Os butiás servem de alimento para diversas espécies de animais, como aves e pequenos mamíferos, que ajudam a dispersar as sementes e a regenerar os butiazais. O butiazeiro é profundamente integrado à cultura local e ao conhecimento tradicional associado (CTA) das comunidades do Pampa. Os frutos de butiá são amplamente utilizados em receitas típicas, como sucos, geleias, licores e doces, especialmente nas regiões rurais. As comunidades locais conhecem os melhores períodos para a colheita e possuem técnicas específicas para o processamento dos butiás, práticas que são transmitidas de geração em geração. Entre os Povos e Comunidades Tradicionais do Pampa, o butiá não é apenas uma fonte de alimento, mas também um símbolo cultural e identitário. Essa planta está presente em festividades regionais e representa a conexão das pessoas com o bioma Pampa. O butiazal – formado por palmeiras butiá em meio ao campo nativo – é uma das paisagens de comunidades de Pecuaristas Familiares que convivem também com diversos animais nativos do Pampa, os quais encontram – na diversidade destes ambientes – abrigo e alimento, a exemplo da ema, do jacu, dentre outros. A proteção dos butiazais e do conhecimento tradicional associado ao butiazeiro é essencial para conservar a diversidade biocultural da região e para valorizar o conhecimento das comunidades que dependem dessa palmeira.",
+                        foto: "./assets/pampa/butiazeiro.png",
+                        icone: "./assets/pampa/butiazeiro2.png",
+                        informacoesPovo: [
+                            {
+                                nome: "Povos com Conhecimento Tradicional Associado",
+                                informacoes: [
+                                    "Quilombolas", "Kaingang", "Guarani", "Agricultores(as) familiares", "Pecuaristas familiares"
+                                ]
+                            }
+                        ]
+                    }
+                ]
+            },
+            "Mata Atlântica": {
+                titulo: "Mata Atlântica, Floresta Costeira e Mata de Araucária",
+                descricao: `<p>A Mata Atlântica é uma floresta muito rica em biodiversidade, mas infelizmente já foi bastante reduzida pela ocupação humana. Mesmo assim, essa floresta abriga espécies de plantas e animais que não existem em nenhum outro lugar do mundo.A maior parte do que sobrou da Mata Atlântica está em áreas de difícil acesso, nas chamadas "serras brasileiras", que incluem a Serra do Mar e a Serra da Mantiqueira.</p>
+                <ul>
+                    <li><b>Clima</b>: Predominantemente úmido, com regiões mais quentes próximas ao litoral e áreas mais frias nas serras.</li>
+                    <li><b>Aparência</b>: Floresta densa com árvores de grande porte e vegetação variada. O relevo montanhoso ajuda a proteger algumas áreas, mas dificulta o acesso.</li>
+                    <li><b>Vegetação</b>: Exuberante, com árvores como o jequitibá-rosa e o palmito-juçara, além de bromélias e orquídeas, que são plantas epífitas.</li>
+                    <li><b>Curiosidade</b>: A Mata Atlântica é o lar do mico-leão-dourado e da jiboia-arco-íris, espécies que só existem aqui e que estão ameaçadas de extinção.</li>
+                `,
+                tipoInformativo: "Para saber mais",
+                textoInformativo: "Plantas epífitas são plantas que crescem em outras plantas (principalmente nas árvores), mas sem tirar nutrientes delas. Elas usam o tronco ou os galhos como suporte para alcançar a luz, aproveitando a umidade e os nutrientes que vêm da chuva e do ar.",
+
+                // Duplo
+                descricao2: `<p>Dentro da Mata Atlântica, encontra-se uma vegetação especialmente conhecida como Mata de Araucária. Ela ocorre principalmente nas regiões mais altas e frias do Sul do Brasil, como nos estados do Paraná, Santa Catarina e Rio Grande do Sul.</p>
+                <ul>
+                    <li><b>Clima</b>: Clima subtropical, com invernos frios e até periódicos.</li>
+                    <li><b>Aparência</b>: A Mata de Araucária é desenhada pelo pinheiro-brasileiro, ou araucária, uma árvore alta e com formato de “guarda-chuva” nos galhos.</li>
+                    <li><b>Curiosidade</b>: As araucárias produzem pinhões, sementes que são alimento para animais como a gralha-azul. Esse pássaro ajuda a espalhar as sementes pela floresta, pois enterra os pinhões no solo para extrair mais tarde, mas muitas vezes esquece alguns!
+                </ul>
+                <p>A araucária (Araucaria angustifolia) possui grande importância cultural e espiritual para os povos indígenas Kaingang e Xokleng, que habitam a região da Mata de Araucária há séculos. O pinhão, semente da araucária, é uma fonte essencial de alimento e está presente em festividades e rituais comunitários desses povos. O Povo Kaingang, por exemplo, têm o hábito de coleta e armazenamento do pinhão, respeitando o ciclo natural da árvore e garantindo que a colheita não afete a regeneração das araucárias. Já o Povo Xokleng possui práticas tradicionais de manejo e uso sustentável da araucária. A preservação da araucária e o respeito ao conhecimento tradicional dos Povos Kaingang e Xokleng são fundamentais para manter o equilíbrio da Mata de Araucária e proteger a cultura desses povos, que possuem um vínculo profundo e sustentável com esse ecossistema.</p>
+                `,
+                caminhoSvg: "./assets/mata-atlantica/mata-atlantica.png",
+                imagens: [],
+                referencias: [
+                    "SOS Mata Atlântica",
+                    "Ministério do Meio Ambiente - Portal da Mata Atlântica",
+                    "LORENZI, H; MATOS, F.J.A. Plantas Medicinais no Brasil: nativas e exóticas. Nova Odessa , SP: Instituto Plantarum, 2002.",
+                    "LORENZI, H; MATOS, F.J.A. Plantas Medicinais no Brasil: nativas e exóticas. 2. ed. Nova Odessa , SP: Instituto Plantarum, 2008.",
+                    "Espécies nativas da flora brasileira – plantas para o futuro,Região Sul,/ Lídio Coradin et al. Brasília, MMA, 2011.",
+                    "CORRÊA, M. P.. Dicionário das plantas úteis do Brasil e das exóticas cultivadas (1926-1978) (6 v.). Rio de Janeiro: IBDF, 1984.",
+                    "VEIGA, J. Aspectos fundamentais da cultura Kaingang. Campinas: Curt Nimuendajú, 2006.",
+                    "https://repositorio.ufsc.br/xmlui/handle/123456789/92792",
+                    "https://pib.socioambiental.org/pt/Povo%3AXokleng"
+                ],
+                plantas: [
+                    {
+                        id: "erva-baleeira",
+                        nomePopular: "Erva Baleeira",
+                        nomeCientifico: "Varronia curassavica",
+                        descricao: "A erva-baleeira ( Varronia curassavica ) é um arbusto nativo da Mata Atlântica que também pode ser encontrado em outras regiões costeiras do Brasil. Ela cresce bem em áreas de sol, podendo atingir até dois metros de altura, e é conhecida por suas folhas aromáticas, que liberam um cheiro característico quando amassadas. As folhas da erva-baleeira são alongadas e têm bordas serrilhadas, o que facilita sua identificação. Na época da floração, a erva-baleeira é cheia de pequenas flores brancas, que atraem insetos polinizadores. Essa planta é valorizada por comunidades locais, que tradicionalmente utilizam suas folhas para diversos fins, graças às propriedades naturais conhecidas há gerações. A erva-baleeira é um ótimo exemplo de como o conhecimento tradicional associado pode contribuir para a preservação, neste caso, principalmente da restinga, que é seu habitat natural. Ao valorizar e proteger os guardiões das práticas tradicionais ligadas ao uso da erva-baleeira, também estamos ajudando a conservar esse importante ecossistema da Mata Atlântica.",
+                        foto: "./assets/mata-atlantica/erva-baleeira.png",
+                        informacoesPovo: [
+                            {
+                                nome: "Povos com Conhecimento Tradicional Associado",
+                                informacoes: [
+                                    "Guarani",
+                                    "Pescadores(as) artesanais",
+                                    "Quilombolas",
+                                    "Caiçaras"
+                                ],
+                                mais: ["<a href='vem-ai.html'>Sobre Caiçaras</a>"]
+                            },
+                        ],
+                    },
+                    {
+                        id: "pitanga",
+                        nomePopular: "Pitanga",
+                        nomeCientifico: "Eugenia uniflora",
+                        descricao: "A pitangueira ( Eugenia uniflora ) é uma árvore nativa da Mata Atlântica, conhecida principalmente por seus frutos saborosos, as pitangas. Essas pequenas frutas, que variam de vermelho a roxo quando maduras, têm um sabor doce e levemente ácido e são muito apreciadas tanto para consumo direto quanto no preparo de sucos, geleias e outros produtos caseiros. A pitangueira também é uma importante fonte de alimento para a fauna. Seus frutos atraem várias espécies de aves, como sabiás e sanhaços, e pequenos mamíferos, que trazem benefícios para a dispersão das sementes e ajudam a regenerar o ambiente. Esse uso tradicional, transmitido por gerações, valoriza a pitangueira como uma fonte de alimentos tanto para as pessoas quanto para os animais, reforçando sua importância para a cultura local e a biodiversidade da Mata Atlântica. ",
+                        foto: "./assets/mata-atlantica/pitanga.png",
+                        informacoesPovo: [
+                            {
+                                nome: "Povos com Conhecimento Tradicional Associado",
+                                informacoes: [
+                                    "Pataxó",
+                                    "Guarani",
+                                    "Fulni-ô",
+                                    "Raizeiras",
+                                    "Povos de terreiro",
+                                    "Pescadores(as) artesanais",
+                                    "Quilombolas",
+                                    "Caiçaras",
+                                    "Açorianos",
+                                    "Agricultores(as) familiares"
+                                ],
+                            }
+                        ],
+                    },
+                    {
+                        id: "guaco",
+                        nomePopular: "Guaco",
+                        nomeCientifico: "Mikania glomerata",
+                        descricao: "O guaco (Mikania glomerata) é uma planta nativa da Mata Atlântica, conhecida por suas folhas aromáticas e propriedades medicinais. Com crescimento em forma de trepadeira, ele usa o suporte de árvores próximas para alcançar a luz. Suas folhas verdes e alongadas têm um aroma marcante e são extremamente valorizadas em tradições populares, especialmente em práticas caseiras que aproveitam o conhecimento passado por gerações. O guaco também desempenha um papel importante para a fauna local, atraindo polinizadores com suas pequenas flores brancas. Além disso, é utilizado por algumas espécies de insetos que encontram nas folhas e galhos um local seguro para abrigo. Assim, o guaco é uma planta que não só se conecta às comunidades à natureza por meio de seus usos tradicionais, mas também contribui para o equilíbrio ecológico da Mata Atlântica.",
+                        foto: "./assets/mata-atlantica/guaco.png",
+                        informacoesPovo: [
+                            {
+                                nome: "Povos com Conhecimento Tradicional Associado",
+                                informacoes: [
+                                    "Raizeiras(os)",
+                                    "Pescadores(as) artesanais",
+                                    "Povos de terreiro",
+                                    "Extrativistas",
+                                    "Caiçaras",
+                                    "Agricultores(as)"
+                                ]
+                            }
+                        ],
+                    }
+                ]
+            }
+
         };
 
-        const divBrasil = document.getElementById('divBrasil');
-        const divBioma = document.getElementById('divBioma');
-        const svgBiomas = document.querySelector('#svg-biomas');
+        const divBrasil = document.getElementById('div-brasil');
+        const divBioma = document.getElementById('div-bioma');
+        const btnVoltar = document.getElementById('btn-voltar');
+        const svgBioma = document.querySelector('#svg-bioma');
+        const textoEsquerdo = document.getElementById('texto-esquerdo');
+        const listaPlantas = document.getElementById('lista-plantas');
+        const listaReferencias = document.getElementById('lista-referencias');
 
-        const biomaText = document.getElementById('bioma-text');
-        const biomeTitle = document.getElementById('biome-title');
-        const biomeDescription = document.getElementById('bioma-description');
-
-        function voltarParaBrasil() {
-            divBrasil.style.display = "flex";
+        function voltarParaMapaBrasil() {
+            divBrasil.style.display = "";
             divBioma.style.display = "none";
+            btnVoltar.style.display = "none";
+            listaPlantas.innerHTML = "";
+            listaReferencias.innerHTML = "";
+            document.querySelector("body").style.backgroundColor = "#5C917D";
+            carregarTextoInicial()
         }
-
-        // Adiciona eventos de clique ao mapa principal
-        function addClickEvents() {
-            document.querySelector("#biome-map-container").querySelectorAll('path').forEach(function (path) {
+        // Atualiza view para exibir o bioma selecionado
+        function adicionarEventosCliqueMapaBrasil() {
+            document.querySelector("#mapa-brasil-biomas").querySelectorAll('path').forEach(function (path) {
                 path.addEventListener('click', function (event) {
-                    let nomeBioma = biomasKey[path.classList[0]].nome
+                    let nomeBioma = chavesBiomas[path.classList[0]].nome
                     // Verifica se o bioma clicado é válido
                     if (nomeBioma != null) {
                         // Esconde o mapa do Brasil
                         divBrasil.style.display = "none";
                         // Exibe o SVG do bioma
                         let biomaSelecionado = colecaoBiomas[nomeBioma];
-                        loadBiomaSvg(biomaSelecionado.mapId, svgBiomas, nomeBioma);
-                        divBioma.style.display = "flex";
+                        //carregarPngDoBioma(biomaSelecionado.caminhoSvg, svgBioma, nomeBioma);
+                        svgBioma.innerHTML = `<img src="${biomaSelecionado.caminhoSvg}" alt="${nomeBioma}">`;
+                        divBioma.style.display = "";
+                        btnVoltar.style.display = "";
+                        // Muda cor de fundo
+                        document.querySelector("body").style.backgroundColor = "#19365d";
+
+                        let imagensPlantas = biomaSelecionado.plantas.map(planta => `
+                        <div class='cartao-planta' onclick="adicionarEventoCliquePlanta('${nomeBioma}','${planta.id}')">
+                            <p><b>${planta.nomePopular}</b></p>
+                            <p><i>${planta.nomeCientifico}</i></p>
+                            <img src="${planta.foto}" alt="${planta.nomeCientifico}">
+                        </div>`).join('');
+
+                        // Acumula imagens 
+                        let imagensInformativo = biomaSelecionado.imagens.map((imagem, i) => `<img src="${imagem}" alt="${nomeBioma + i}">`).join('');
+
                         // Exibe o texto do bioma
-                        biomaText.style.display = "block";
-                        biomeTitle.textContent = biomaSelecionado.title;
-                        biomeDescription.textContent = biomaSelecionado.description;
+                        // Exibe as imagens informativas do bioma
+                        textoEsquerdo.innerHTML = `
+                <h1>${biomaSelecionado.titulo}</h1>
+                <p>${biomaSelecionado.descricao}</p>
+                ${biomaSelecionado.descricao2 ? `<hr/><p>${biomaSelecionado.descricao2}</p>` : ''}
+                <div class="imagens-informativo">
+                    ${imagensInformativo}
+                </div>
+                `;
+
+                        svgBioma.innerHTML += `
+  <div class="informativo balao azul texto-planta">
+                    <p><strong>${biomaSelecionado.tipoInformativo}</strong></p>
+                    <p>${biomaSelecionado.textoInformativo}</p>
+                </div>
+                    `;
+
+                        listaPlantas.innerHTML = `
+                        <img class="moldura" src="./assets/moldura-fina.png" alt="Moldura fina" />
+                    <h1 class="plantas">(Algumas) Plantas do Bioma</h1>
+                    <div class="plantas">
+                        ${imagensPlantas}
+                    </div>
+                `
+
+                        if (biomaSelecionado.referencias.length > 0) {
+                            let referencias = biomaSelecionado.referencias.map(ref => `<p>${ref}</p>`).join('');
+                            listaReferencias.innerHTML = `
+                    <div class="referencias balao azul texto-povo">
+                        <p><strong>Referências</strong></p>
+                        ${referencias}
+                    </div>
+                    `
+                        }
                     }
                 });
             });
         }
 
         // Adiciona eventos de clique ao SVG do bioma
-        function addClickEventsBioma() {
-            document.querySelector("#svg-biomas").querySelectorAll('polygon').forEach(function (polygon) {
+        function adicionarEventoCliqueBiomas() {
+            document.querySelector("#svg-bioma").querySelectorAll('polygon').forEach(function (polygon) {
                 polygon.addEventListener('click', function (event) {
-                    let nomeBioma = document.querySelector("#svg-biomas")['data-info']
+                    let nomeBioma = document.querySelector("#svg-bioma")['data-info']
                     let idPlanta = polygon.id;
-                    let plantaSelecionada = colecaoBiomas[nomeBioma].marcadores.find(marcador => marcador.id === idPlanta);
+                    let plantaSelecionada = colecaoBiomas[nomeBioma].plantas.find(marcador => marcador.id === idPlanta);
                     if (plantaSelecionada) {
-                        biomeTitle.textContent = plantaSelecionada.title;
-                        biomeDescription.textContent = plantaSelecionada.description;
+                        textoEsquerdo.innerHTML = `
+                    <h1>${plantaSelecionada.title}</h1>
+                    <p>${plantaSelecionada.description}</p>
+                `;
                     }
                 });
             });
         }
 
-        function loadBiomaSvg(svgPath, container, nomeBioma) {
+        function adicionarEventoCliquePlanta(nomeBioma, id) {
+            let plantaSelecionada = colecaoBiomas[nomeBioma].plantas.find(marcador => marcador.id === id);
+            if (plantaSelecionada) {
+                // Limpa imagem do bioma
+                svgBioma.innerHTML = "";
+
+                // Limpa lista de plantas
+                listaPlantas.innerHTML = "";
+
+                // Limpa lista de referências
+                listaReferencias.innerHTML = "";
+
+                // Muda cor de fundo
+                document.querySelector("body").style.backgroundColor = "#d66364";
+
+                textoEsquerdo.innerHTML = `
+                <div id="planta-selecionada">
+                    <h1>${plantaSelecionada.nomePopular}</h1>
+                    <hr/>
+                    <h2 class="cientifico">${plantaSelecionada.nomeCientifico}</h2>
+                    <img src="${plantaSelecionada.foto}" alt="${plantaSelecionada.nomePopular}"/>
+                    <p>${plantaSelecionada.descricao}</p>
+                    <hr/>
+                    ${plantaSelecionada.icone ? `<img src="${plantaSelecionada.icone}" alt="${plantaSelecionada.nomePopular}"/>` : ''}
+                </div>
+                `;
+
+                plantaSelecionada.informacoesPovo.forEach(info => {
+                    svgBioma.innerHTML += `
+                    <div class="informativo balao branco texto-povo">
+                        <p><strong>Informações sobre povo ${info.nome}</strong></p>
+                        ${info.informacoes.map(i => `<p>${i}</p>`).join('')}
+                    </div>
+                    `;
+                });
+
+                plantaSelecionada.informacoesPovo.forEach(info => {
+                    if (info.mais) {
+                        svgBioma.innerHTML += `
+                        <div class="informativo balao verde texto-povo">
+                            <p><strong>Mais informações sobre o povo ${info.nome}</strong></p>
+                            ${info.mais.map(i => `<p>${i}</p>`).join('')}
+                        </div>
+                        `;
+                    }
+                });
+            }
+        }
+
+        function carregarPngDoBioma(pngPath, container, nomeBioma) {
+            fetch(pngPath)
+                .then(response => response.blob())
+                .then(pngData => {
+                    let url = URL.createObjectURL(pngData);
+
+                })
+                .catch(error => console.error('Erro ao carregar o PNG:', error));
+
+        }
+
+        function carregarSvgDoBioma(svgPath, container, nomeBioma) {
             fetch(svgPath)
                 .then(response => response.text())
                 .then(svgData => {
                     container.insertAdjacentHTML('beforeend', svgData);
                     container['data-info'] = nomeBioma
-                    addClickEventsBioma();
+                    adicionarEventoCliqueBiomas();
                 })
                 .catch(error => console.error('Erro ao carregar o SVG:', error));
         }
 
-        function loadSVGBrasil(svgPath, container) {
+        function carregarSvgDoBrasil(svgPath, container) {
             fetch(svgPath)
                 .then(response => response.text())
                 .then(svgData => {
                     container.innerHTML = svgData;
-                    addClickEvents();
+                    adicionarEventosCliqueMapaBrasil();
                 })
                 .catch(error => console.error('Erro ao carregar o SVG:', error));
         }
 
-        loadSVGBrasil('./assets/mapa_todos-nat-geo.svg', document.getElementById('biome-map-container'));
+        function carregarTextoInicial() {
+            textoEsquerdo.innerHTML = `
+                 <h1>MIPOTI</h1>
+            <h2>Conhecendo a Diversidade Biocultural do Brasil</h2>
+            <p>
+                Para interagir:
+                <br>O Mapa Interativo de Conhecimentos de Povos Tradicionais e Povos Indígenas (MIPOTI) é uma ferramenta
+                digital que permite aos usuários descobrir conhecimentos etnobotânicos em diferentes biomas do Brasil,
+                destacando as práticas culturais relacionadas ao uso de plantas em comunidades tradicionais, incluindo
+                povos indígenas, quilombolas e povos de terreiro, entre outros.
+                <br><br>
+                Clique em um Bioma para começar a conhecer.
+            </p>
+            <a href="sobre.html" class="btn">Sobre o MIPOTI</a>
+            <a href="quiz.html" class="btn">(Quiz) Teste seus conhecimentos</a>
+            <a href="vem-ai.html" class="btn">Materiais didáticos</a>
+            `;
+        }
+
+        carregarTextoInicial();
+
+        carregarSvgDoBrasil('./assets/mapa_todos-nat-geo.svg', document.getElementById('mapa-brasil-biomas'));
 
     </script>
 

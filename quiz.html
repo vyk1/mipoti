@@ -1,0 +1,233 @@
+<!DOCTYPE html>
+<html lang="pt-BR">
+
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>Quiz Interativo do 🍃MIPOTI - Conhecendo a Diversidade Biocultural do Brasil através de uma ferramenta
+        digital🇧🇷</title>
+    <meta name="description"
+        content="Quiz Interativo do MIPOTI - Conhecendo a Diversidade Biocultural do Brasil através de uma ferramenta digital">
+    <meta name="keywords" content="MIPOTI, Brasil, bioma, diversidade biocultural">
+    <meta name="author" content="Victoria Botelho Martins, Luciele Leonhardt Romanowski, Sofia Zank, Natalia Hanazaki">
+    <meta name="robots" content="index, follow">
+    <link rel="stylesheet" href="./assets/style.css">
+    <link href="./assets/fonts/Merriweather.css" rel="stylesheet">
+</head>
+
+<body>
+    <nav class="menu-bar">
+        <a href="index.html">Início</a>
+        <a href="sobre.html">Sobre</a>
+    </nav>
+
+    <div id="inicio" class="content">
+        <div id="quiz-container">
+            <h1>Quiz do MIPOTI</h1>
+            <h4>Selecione uma reposta e clique no botão de "Enviar Resposta" para corrigir</h4>
+            <div class="question" id="question"></div>
+            <ul class="choices" id="choices"></ul>
+            <button id="submit-button">Enviar Resposta</button>
+            <div class="explanation" id="explanation" style="display: none;"></div>
+            <button id="next-button">Próxima Pergunta</button>
+        </div>
+    </div>
+
+    <img class="moldura" src="./assets/moldura-grossa.png" alt="Moldura Grossa" />
+    <footer>
+        <p>&copy; 2024 MIPOTI - Este software é software livre, licenciado sob a MIT License.</p>
+    </footer>
+
+
+    <script>
+        // JSON com várias perguntas do quiz
+        const quizData = [
+            // Bioma Cerrado
+            {
+                "question": "Por que o Cerrado é chamado de 'berço das águas'?",
+                "choices": ["A) Porque possui poucas chuvas", "B) Por ser uma região com muitos lagos", "C) Porque é onde nascem muitos rios importantes", "D) Por sua vegetação densa"],
+                "correct": "C) Porque é onde nascem muitos rios importantes",
+                "explanation": "O Cerrado é chamado de 'berço das águas' porque é onde nascem muitos rios importantes do Brasil."
+            },
+            {
+                "question": "Qual é um dos rios que nasce no Cerrado?",
+                "choices": ["A) Rio Amazonas", "B) Rio Tocantins", "C) Rio Paraná", "D) Rio Paraguai"],
+                "correct": "B) Rio Tocantins",
+                "explanation": "O Rio Tocantins é um dos rios que nasce no Cerrado."
+            },
+            {
+                "question": "Como a vegetação do Cerrado é adaptada ao fogo?",
+                "choices": ["A) Ela não é adaptada", "B) Suas folhas caem durante os incêndios", "C) Possui raízes longas e casca grossa, com floração e germinação de plantas após os incêndios", "D) Encontram água com mais facilidade que outras plantas"],
+                "correct": "C) Possui raízes longas e casca grossa, com floração e germinação de plantas após os incêndios",
+                "explanation": "A vegetação do Cerrado possui adaptações como raízes longas e casca grossa, além de floração e germinação de plantas após os incêndios."
+            },
+            {
+                "question": "Qual é a principal função da dormência nas sementes do Cerrado?",
+                "choices": ["A) Evitar que as sementes germinem em qualquer estação", "B) Proteger a semente de animais", "C) Aumentar o tamanho da planta", "D) Esperar o momento ideal para germinar"],
+                "correct": "D) Esperar o momento ideal para germinar",
+                "explanation": "A dormência nas sementes do Cerrado ajuda a esperar o momento ideal para germinar, evitando condições desfavoráveis."
+            },
+            {
+                "question": "Quais animais são típicos do Cerrado?",
+                "choices": ["A) Jacarés e capivaras", "B) Lobo-guará e tamanduá-bandeira", "C) Tuiuiú e tucano", "D) Ema e capivara"],
+                "correct": "B) Lobo-guará e tamanduá-bandeira",
+                "explanation": "O lobo-guará e o tamanduá-bandeira são animais típicos do Cerrado."
+            },
+
+            // Bioma Pantanal
+            {
+                "question": "Qual é o principal rio que ajuda a alagar o Pantanal?",
+                "choices": ["A) Rio Amazonas", "B) Rio São Francisco", "C) Rio Paraná", "D) Rio Paraguai"],
+                "correct": "D) Rio Paraguai",
+                "explanation": "O Rio Paraguai é o principal rio que ajuda a alagar o Pantanal."
+            },
+            {
+                "question": "O que acontece com o Pantanal durante a estação seca?",
+                "choices": ["A) Ele se inunda completamente", "B) A área fica coberta de neve", "C) As águas diminuem, revelando campos e áreas secas", "D) A vegetação morre"],
+                "correct": "C) As águas diminuem, revelando campos e áreas secas",
+                "explanation": "Durante a estação seca, as águas do Pantanal diminuem, revelando campos e áreas secas."
+            },
+            {
+                "question": "Qual é a função das raízes pneumatóforas?",
+                "choices": ["A) Armazenar nutrientes", "B) Permitir a respiração em solos alagados", "C) Absorver mais água", "D) Fixar a planta ao solo"],
+                "correct": "B) Permitir a respiração em solos alagados",
+                "explanation": "As raízes pneumatóforas permitem a respiração em solos alagados, comuns em áreas como o Pantanal."
+            },
+            {
+                "question": "Qual ave é símbolo do Pantanal?",
+                "choices": ["A) Quero-quero", "B) Tuiuiú", "C) Arara-azul", "D) Tucano"],
+                "correct": "B) Tuiuiú",
+                "explanation": "O Tuiuiú é a ave símbolo do Pantanal."
+            },
+            {
+                "question": "O que é a bocaiúva?",
+                "choices": ["A) Uma palmeira com frutos comestíveis", "B) Uma árvore que só existe no Cerrado", "C) Uma planta medicinal aquática", "D) Um arbusto típico da Mata Atlântica"],
+                "correct": "A) Uma palmeira com frutos comestíveis",
+                "explanation": "A bocaiúva é uma palmeira cujos frutos são comestíveis."
+            },
+
+            // Bioma Pampa
+            {
+                "question": "Qual é a principal vegetação do Pampa?",
+                "choices": ["A) Árvores altas", "B) Cactos e arbustos", "C) Gramíneas e outras plantas herbáceas", "D) Manguezais"],
+                "correct": "C) Gramíneas e outras plantas herbáceas",
+                "explanation": "A principal vegetação do Pampa é composta por gramíneas e outras plantas herbáceas."
+            },
+            {
+                "question": "O que é o Cerro do Jarau?",
+                "choices": ["A) Um lago do Pantanal", "B) Um ponto turístico no Cerrado", "C) Uma formação geológica no Pampa", "D) Uma cachoeira na Amazônia"],
+                "correct": "C) Uma formação geológica no Pampa",
+                "explanation": "O Cerro do Jarau é uma formação geológica localizada no Pampa."
+            },
+            {
+                "question": "Em que época é tradicionalmente colhida a planta marcela?",
+                "choices": ["A) Durante a Semana Santa", "B) No verão", "C) Durante a estação chuvosa", "D) No outono"],
+                "correct": "A) Durante a Semana Santa",
+                "explanation": "A planta marcela é tradicionalmente colhida durante a Semana Santa."
+            },
+            {
+                "question": "Qual formação vegetal pode ser encontrada no Pampa além das gramíneas e outras plantas herbáceas?",
+                "choices": ["A) Floresta Amazônica", "B) Mata de Araucária", "C) Butiazais", "D) Mata Atlântica"],
+                "correct": "C) Butiazais",
+                "explanation": "Os butiazais são formações vegetais encontradas no Pampa."
+            },
+            {
+                "question": "Qual fruto típico do Pampa é usado em sucos, geleias e licores?",
+                "choices": ["A) Pequi", "B) Jatobá", "C) Butiá", "D) Jenipapo"],
+                "correct": "C) Butiá",
+                "explanation": "O butiá é um fruto típico do Pampa, usado em sucos, geleias e licores."
+            },
+
+            // Bioma Mata Atlântica
+            {
+                "question": "O que são plantas epífitas?",
+                "choices": ["A) Plantas que crescem em solo arenoso", "B) Plantas que vivem na água", "C) Plantas que crescem em outras plantas sem retirar seus nutrientes", "D) Plantas que vivem debaixo da terra"],
+                "correct": "C) Plantas que crescem em outras plantas sem retirar seus nutrientes",
+                "explanation": "As plantas epífitas crescem em outras plantas sem retirar seus nutrientes."
+            },
+            {
+                "question": "Qual é uma árvore típica da Mata de Araucária?",
+                "choices": ["A) Jequitibá-rosa", "B) Araucária", "C) Aroeira", "D) Calunga"],
+                "correct": "B) Araucária",
+                "explanation": "A araucária é uma árvore típica da Mata de Araucária."
+            },
+            {
+                "question": "Qual pássaro ajuda a dispersar as sementes de araucária na Mata de Araucária?",
+                "choices": ["A) Tuiuiú", "B) Sanhaço", "C) Gralha-azul", "D) Ema"],
+                "correct": "C) Gralha-azul",
+                "explanation": "A gralha-azul ajuda a dispersar as sementes de araucária na Mata de Araucária."
+            },
+            {
+                "question": "Qual fruto da Mata Atlântica é conhecido pelo sabor doce, levemente ácido e que variam de vermelho a roxo quando maduras?",
+                "choices": ["A) Pequi", "B) Pitanga", "C) Bocaiúva", "D) Andiroba"],
+                "correct": "B) Pitanga",
+                "explanation": "A pitanga é conhecida pelo sabor doce, levemente ácido e varia de vermelho a roxo quando maduras."
+            },
+            {
+                "question": "Qual planta da Mata Atlântica é usada tradicionalmente por suas folhas aromáticas, propriedades medicinais e com crescimento em forma de trepadeira?",
+                "choices": ["A) Guaco", "B) Aroeira", "C) Mandacaru", "D) Jenipapo"],
+                "correct": "A) Guaco",
+                "explanation": "O guaco é usado tradicionalmente por suas folhas aromáticas e propriedades medicinais, crescendo como trepadeira."
+            }
+        ];
+
+        let currentQuestionIndex = 0;
+
+        function carregarPergunta() {
+            if (currentQuestionIndex >= quizData.length) {
+                alert("Parabéns! Todas as perguntas foram respondidas.");
+                document.getElementById('quiz-container').innerHTML = "<h2>Você completou o quiz!</h2>";
+                return;
+            }
+
+            const perguntaAtual = quizData[currentQuestionIndex];
+            document.getElementById('question').textContent = perguntaAtual.question;
+            const choicesContainer = document.getElementById('choices');
+            choicesContainer.innerHTML = ""; // Limpa as opções anteriores
+
+            perguntaAtual.choices.forEach(choice => {
+                const li = document.createElement('li');
+                li.innerHTML = `<label><input type="radio" name="choice" value="${choice}"> ${choice}</label>`;
+                choicesContainer.appendChild(li);
+            });
+
+            document.getElementById('explanation').style.display = 'none'; // Oculta a explicação anterior
+            document.getElementById('next-button').style.display = 'none'; // Oculta o botão de próxima pergunta
+        }
+
+        document.getElementById('submit-button').addEventListener('click', () => {
+            const escolhaSelecionada = document.querySelector('input[name="choice"]:checked');
+            const explicacaoContainer = document.getElementById('explanation');
+
+            if (!escolhaSelecionada) {
+                alert('Por favor, selecione uma resposta!');
+                return;
+            }
+
+            const perguntaAtual = quizData[currentQuestionIndex];
+
+            if (escolhaSelecionada.value === perguntaAtual.correct) {
+                explicacaoContainer.textContent = `Correto! ${perguntaAtual.explanation}`;
+                explicacaoContainer.style.backgroundColor = 'rgb(55, 255, 85)';
+                explicacaoContainer.style.borderColor = '#c3e6cb';
+            } else {
+                explicacaoContainer.textContent = `Incorreto. ${perguntaAtual.explanation}`;
+                explicacaoContainer.style.backgroundColor = 'rgb(255, 115, 88)';
+                explicacaoContainer.style.borderColor = '#f5c6cb';
+            }
+
+            explicacaoContainer.style.display = 'block';
+            document.getElementById('next-button').style.display = 'block'; // Exibe o botão de próxima pergunta
+        });
+
+        document.getElementById('next-button').addEventListener('click', () => {
+            currentQuestionIndex++;
+            carregarPergunta();
+        });
+
+        // Carrega a primeira pergunta ao carregar a página
+        carregarPergunta();
+    </script>
+</body>
+
+</html>
