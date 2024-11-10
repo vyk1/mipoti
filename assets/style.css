@@ -68,6 +68,10 @@ main {
     width: 100%;
 }
 
+.verde-claro {
+    background-color: #9eba58;
+}
+
 .cientifico {
     font-weight: bold;
     font-size: 1.2em;
@@ -133,10 +137,20 @@ main {
     display: inline-block;
 }
 
+hr {
+    width: 100vw;
+    color: grey;
+}
+
 .esquerdo li {
     line-height: 1.6;
     margin-bottom: 1em;
     list-style-type: none;
+}
+
+.direito li {
+    line-height: 1.6;
+    margin-bottom: 1em;
 }
 
 #planta-selecionada img {
