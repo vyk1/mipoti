@@ -137,6 +137,11 @@ main {
     display: inline-block;
 }
 
+hr {
+    width: 100vw;
+    color: grey;
+}
+
 .esquerdo li {
     line-height: 1.6;
     margin-bottom: 1em;
