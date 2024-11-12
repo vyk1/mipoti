@@ -24,7 +24,9 @@
     <div id="inicio" class="content">
         <div id="quiz-container">
             <h1>Quiz do MIPOTI</h1>
-            <h4>Selecione uma reposta e clique no botão de "Enviar Resposta" para corrigir</h4>
+            <div class="alert-info">
+                <h4>Selecione uma reposta e clique no botão de "Enviar Resposta" para corrigir</h4>
+            </div>
             <div class="question" id="question"></div>
             <ul class="choices" id="choices"></ul>
             <button id="submit-button">Enviar Resposta</button>
@@ -35,7 +37,7 @@
 
     <img class="moldura" src="./assets/moldura-grossa.png" alt="Moldura Grossa" />
     <footer>
-        <p>&copy; 2024 MIPOTI - Este software é software livre, licenciado sob a MIT License.</p>
+        <p>&copy; 2024 MIPOTI - Este software é software livre, licenciado sob MIT License.</p>
     </footer>
 
 
@@ -44,7 +46,7 @@
         const quizData = [
             // Bioma Cerrado
             {
-                "question": "Por que o Cerrado é chamado de 'berço das águas'?",
+                "question": "Por quê o Cerrado é chamado de 'berço das águas'?",
                 "choices": ["A) Porque possui poucas chuvas", "B) Por ser uma região com muitos lagos", "C) Porque é onde nascem muitos rios importantes", "D) Por sua vegetação densa"],
                 "correct": "C) Porque é onde nascem muitos rios importantes",
                 "explanation": "O Cerrado é chamado de 'berço das águas' porque é onde nascem muitos rios importantes do Brasil."
