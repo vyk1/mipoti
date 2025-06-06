@@ -1,6 +1,13 @@
 # MIPOTI: Desvendando o Conhecimento Tradicional das Plantas
 
 <div align="center">
+<h1> ⚠️ Este repositório foi migrado! ⚠️
+<br/>
+<span href="https://mipoti.ufsc.br">MIPOTI agora é domínio UFSC!</span>
+</h1>
+</div>
+
+<div align="center">
 
 ![Mipoti](./mipoti.png)
 
